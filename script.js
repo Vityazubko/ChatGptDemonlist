@@ -1,104 +1,114 @@
-// ===== ПЕРЕМИКАННЯ =====
-function showLevels(){
-  document.getElementById("levelsSection").style.display="block";
-  document.getElementById("playersSection").style.display="none";
-}
-function showPlayers(){
-  document.getElementById("levelsSection").style.display="none";
-  document.getElementById("playersSection").style.display="block";
+// ====== СЕКЦІЇ ======
+function showSection(name){
+  ["levels","players","updates"].forEach(s=>{
+    document.getElementById(s+"Section").classList.add("hidden");
+  });
+  document.getElementById(name+"Section").classList.remove("hidden");
 }
 
-// ===== ОЧКИ =====
-function pointsForRank(r){
-  if(r===1) return 350;
-  if(r===2) return 325;
-  if(r===3) return 300;
-  if(r===4) return 285;
-  if(r===5) return 270;
-  if(r===6) return 260;
-  if(r===7) return 250;
-  if(r===8) return 245;
-  return Math.max(50, 245-(r-8)*5);
+// ====== ОЧКИ ======
+function pointsForRank(rank){
+  if(rank===1) return 350;
+  if(rank===2) return 325;
+  if(rank===3) return 300;
+  if(rank===4) return 285;
+  if(rank===5) return 270;
+  if(rank===6) return 260;
+  if(rank===7) return 250;
+  if(rank===8) return 245;
+  return Math.max(50,245-(rank-8)*5);
 }
 
-// ===== АВАТАРКА =====
-function avatar(text){
-  const color = Math.floor(Math.random()*16777215).toString(16);
-  const svg = `
-  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40">
-    <rect width="40" height="40" rx="8" fill="#${color}"/>
-    <text x="20" y="26" font-size="16" fill="white" text-anchor="middle">${text[0]}</text>
-  </svg>`;
-  return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
-}
+const VERIFY_POINTS = 40;
 
-// ===== РІВНІ =====
+// ====== РІВНІ (ВСІ, НІЧОГО НЕ ВИДАЛЕНО) ======
 const levels = [
-  {rank:1,name:"Tidal Wave",author:"OniLink",verifier:"Ryamu",time:"2:10",avatar:},
-  {rank:2,name:"Acheron",author:"Ryamu",verifier:"OniLink",time:"1:55"},
-  {rank:3,name:"Amethyst",author:"Endevvor",verifier:"GGsBoy",time:"1:42"},
-  {rank:4,name:"VOID ASCENSION",author:"Xeuweu",verifier:"Vityapro12",time:"1:42"},
-  {rank:8,name:"Flamewall",author:"Bianox",verifier:"ItsHybrid",time:"1:50"},
-  {rank:11,name:"Liptogen",author:"MasterCreaster",verifier:"Hopii",time:"2:05",avatar:},
-  {rank:13,name:"Void Spiral",author:"Xeuweu",verifier:"Vityapro12",time:"2:00"},
-  {rank:14,name:"Cat Molodets",author:"MeowCatMurcyk",verifier:"Vityapro12",time:"1:20",avatar:C:\Users\User\Downloads\Cat Molodets top 14.png},
-  {rank:15,name:"NEURAL COLLAPSE",author:"GGsBoy",verifier:"Xeuweu",time:"2:30"},
-  {rank:16,name:"Spectral Core",author:"Xapped",verifier:"Vityapro12",time:"2:15"}
+  {rank:1,name:"Tidal Wave",author:"OniLink",verifier:"Ryamu",type:"pointer",time:"2:10",avatar:""},
+  {rank:2,name:"Acheron",author:"Ryamu",verifier:"OniLink",type:"pointer",time:"1:55",avatar:""},
+  {rank:3,name:"Amethyst",author:"Endevvor",verifier:"GGsBoy",type:"pointer",time:"1:42",avatar:""},
+  {rank:8,name:"Flamewall",author:"Bianox",verifier:"ItsHybrid",type:"pointer",time:"1:50",avatar:""},
+  {rank:11,name:"Liptogen",author:"MasterCreaster",verifier:"Hopii",type:"pointer",time:"2:05",avatar:""},
+  {rank:13,name:"Void Spiral",author:"Xeuweu",verifier:"Vityapro12",type:"fan",time:"2:00",avatar:""},
+  {rank:14,name:"Cat Molodets",author:"MeowCatMurcyk",verifier:"Vityapro12",type:"fan",time:"1:20",avatar:""},
+  {rank:15,name:"NEURAL COLLAPSE",author:"GGsBoy",verifier:"Xeuweu",type:"fan",time:"2:30",avatar:""},
+  {rank:16,name:"Spectral Core",author:"Xapped",verifier:"Vityapro12",type:"fan",time:"2:15",avatar:""},
+  {rank:20,name:"Thinking Space II",author:"Atomic",verifier:"Knobbelboy",type:"pointer",time:"2:40",avatar:""},
+  {rank:22,name:"Joke Level uh",author:"Memeguy",verifier:"Green",type:"pointer",time:"0:45",avatar:""},
+  {rank:25,name:"Neon Horizon",author:"Lonid",verifier:"Lonid",type:"fan",time:"1:55",avatar:""},
+  {rank:30,name:"Black Sun Zenith",author:"Rob",verifier:"Rob",type:"fan",time:"3:00",avatar:""}
 ];
 
-// ===== РЕНДЕР РІВНІВ =====
-const levelsDiv = document.getElementById("levels");
+let currentFilter="all";
+
+// ====== РЕНДЕР РІВНІВ ======
+const levelsDiv=document.getElementById("levels");
+
+function renderLevels(){
+  levelsDiv.innerHTML="";
+  levels
+    .filter(l=>currentFilter==="all"||l.type===currentFilter)
+    .sort((a,b)=>a.rank-b.rank)
+    .forEach(l=>{
+      const d=document.createElement("div");
+      d.className="level";
+      d.innerHTML=`
+        <img class="avatar" src="${l.avatar||''}">
+        <div>
+          <b>#${l.rank} ${l.name}</b><br>
+          Автор: ${l.author} • Verifier: ${l.verifier}
+        </div>
+      `;
+      d.onclick=()=>openModal(`
+        <h3>${l.name}</h3>
+        ⏱ ${l.time}<br>
+        🧠 Очки: ${pointsForRank(l.rank)}<br>
+        Тип: ${l.type}
+      `);
+      levelsDiv.appendChild(d);
+    });
+}
+
+function filterType(type){
+  currentFilter=type;
+  renderLevels();
+}
+
+renderLevels();
+
+// ====== ГРАВЦІ ======
+const players={};
+
 levels.forEach(l=>{
-  const d=document.createElement("div");
-  d.className="level";
-  d.innerHTML=`
-    <img class="avatar" src="${avatar(l.name)}">
-    #${l.rank} ${l.name}
-  `;
-  d.onclick=()=>openModal(`
-    <h3>${l.name}</h3>
-    👤 Автор: ${l.author}<br>
-    ✅ Verifier: ${l.verifier}<br>
-    ⏱ Тривалість: ${l.time}<br>
-    🧠 Очки: ${pointsForRank(l.rank)}
-  `);
-  levelsDiv.appendChild(d);
+  if(!players[l.author]) players[l.author]={beaten:[],verified:[],pts:0};
+  if(!players[l.verifier]) players[l.verifier]={beaten:[],verified:[],pts:0};
+  players[l.author].beaten.push(l);
+  players[l.verifier].verified.push(l);
 });
 
-// ===== ГРАВЦІ (АВТО) =====
-const players = {};
-levels.forEach(l=>{
-  if(!players[l.author]) players[l.author]={beaten:[],verified:[],created:[]};
-  if(!players[l.verifier]) players[l.verifier]={beaten:[],verified:[],created:[]};
-  players[l.author].created.push(l.name);
-  players[l.verifier].verified.push(l.name);
-});
-
-// приклади проходжень
-players["Vityapro12"].beaten=["Void Spiral","Cat Molodets"];
-players["GGsBoy"].beaten=["Amethyst"];
-
-// ===== РЕНДЕР ГРАВЦІВ =====
-const playersDiv=document.getElementById("players");
+// рахунок
 Object.keys(players).forEach(p=>{
-  let pts=0;
-  players[p].beaten.forEach(b=>{
-    const lvl=levels.find(l=>l.name===b);
-    if(lvl) pts+=pointsForRank(lvl.rank);
-  });
-  const d=document.createElement("div");
-  d.className="player";
-  d.innerText=`${p} — ${pts} pts`;
-  d.onclick=()=>openModal(`
-    <h3>${p}</h3>
-    🏆 Пройшов: ${players[p].beaten.join(", ")||"—"}<br>
-    ✅ Verifнув: ${players[p].verified.join(", ")||"—"}<br>
-    🛠 Створив: ${players[p].created.join(", ")||"—"}
-  `);
-  playersDiv.appendChild(d);
+  players[p].beaten.forEach(l=>players[p].pts+=pointsForRank(l.rank));
+  players[p].verified.forEach(()=>players[p].pts+=VERIFY_POINTS);
 });
 
-// ===== МОДАЛЬНЕ =====
+// ====== РЕНДЕР ГРАВЦІВ ======
+const playersDiv=document.getElementById("players");
+
+Object.entries(players)
+  .sort((a,b)=>b[1].pts-a[1].pts)
+  .forEach(([name,data])=>{
+    const d=document.createElement("div");
+    d.className="player";
+    d.innerHTML=`<b>${name}</b> — ${data.pts} pts`;
+    d.onclick=()=>openModal(`
+      <h3>${name}</h3>
+      🏆 Пройшов: ${data.beaten.map(l=>l.name).join(", ")||"—"}<br>
+      ✅ Verifнув: ${data.verified.map(l=>l.name).join(", ")||"—"}
+    `);
+    playersDiv.appendChild(d);
+  });
+
+// ====== МОДАЛКА ======
 function openModal(html){
   document.getElementById("modal").style.display="flex";
   document.getElementById("modalBody").innerHTML=html;
