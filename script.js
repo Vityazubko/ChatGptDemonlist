@@ -84,20 +84,20 @@ renderLevels();
 const players = {
   "Vityapro12": {
     created:["Cat Molodets"],
-    verified:["Void Spiral","Cat Molodets"],
-    passed:["Amethyst","Flamewall"], // пройшли чужі рівні
+    verified:["Void Spiral","Cat Molodets","Spectral Core"],
+    passed:["Amethyst","Flamewall","Slaughterhouse","Oblivion"], // пройшли чужі рівні
     pts:0
   },
   "GGsBoy": {
-    created:["Amethyst","NEURAL COLLAPSE"],
-    verified:["Amethyst"],
-    passed:["VOID ASCENSION","Spectral Core"],
+    created:["NEURAL COLLAPSE"],
+    verified:["Amethyst","VOID ASCENSION"],
+    passed:["Spectral Core"],
     pts:0
   },
   "Xeuweu": {
     created:["Xeuweu","VOID ASCENSION","Void Spiral"],
-    verified:["Xeuweu","VOID ASCENSION"],
-    passed:["Amethyst","Oblivion"],
+    verified:["Xeuweu","Neural Collapse"],
+    passed:["Amethyst","Oblivion","VOID ASCENSION"],
     pts:0
   },
   "MeowCatMurcyk": {
@@ -106,9 +106,9 @@ const players = {
     passed:["Flamewall","NEURAL COLLAPSE"],
     pts:0
   },
-  "Lontid": {
+  "Lonid": {
     created:["Neon Horizon"],
-    verified:["Neon Horizon"],
+    verified:["Neon Horizon","SILENT HORIZON X"],
     passed:["Amethyst"],
     pts:0
       },
