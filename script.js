@@ -210,6 +210,10 @@ function showPlayerModal(playerName){
     </div>
   `;
   openModal(html);
+
+  document.getElementById("modal").addEventListener("click", closeModal);
+document.querySelector(".modal-content").addEventListener("click", e => e.stopPropagation());
+
 }
 
 // ====== РЕНДЕР РІВНІВ ======
