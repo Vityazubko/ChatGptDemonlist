@@ -59,7 +59,7 @@ const players = {
   "GGsBoy": {
     created:["NEURAL COLLAPSE"],
     verified:["Amethyst","VOID ASCENSION"],
-    passed:["Spectral Core","Xeuweu"],
+    passed:["Spectral Core","Xeuweu","Kioker Per Ker"],
     pts:0
   },
   "Xeuweu": {
@@ -76,7 +76,7 @@ const players = {
   },
   "Lonid": {
     created:["Neon Horizon"],
-    verified:["Neon Horizon","SILENT HORIZON X"],
+    verified:["Neon Horizon","SILENT HORIZON X","Silent World","Silest World"],
     passed:["Amethyst"],
     pts:0
       },
@@ -107,7 +107,7 @@ const players = {
   "Hopii": {
     created:[],
     verified:["Query","Liptogen"],
-    passed:["Tidal Wave","Cat Molodets","Silent World"],
+    passed:["Tidal Wave","Cat Molodets"],
     pts:0
   }
 };
