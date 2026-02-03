@@ -21,21 +21,31 @@ function pointsForRank(rank){
 
 const VERIFY_POINTS = 40;
 
-// ====== РІВНІ (ВСІ, НІЧОГО НЕ ВИДАЛЕНО) ======
+// ====== РІВНІ (ВСЕ ПОВЕРНУТО + НОВЕ) ======
 const levels = [
-  {rank:1,name:"Tidal Wave",author:"OniLink",verifier:"Ryamu",type:"pointer",time:"2:10",avatar:""},
-  {rank:2,name:"Acheron",author:"Ryamu",verifier:"OniLink",type:"pointer",time:"1:55",avatar:""},
-  {rank:3,name:"Amethyst",author:"Endevvor",verifier:"GGsBoy",type:"pointer",time:"1:42",avatar:""},
+  // ===== PointerCreate =====
+  {rank:1,name:"Xeuweu",author:"Xeuweu",verifier:"Xeuweu",type:"pointer",time:"2:05",avatar:""},
+  {rank:2,name:"Tidal Wave",author:"OniLink",verifier:"Ryamu",type:"pointer",time:"2:10",avatar:""},
+  {rank:3,name:"Query",author:"QueryDev",verifier:"Hopii",type:"pointer",time:"1:58",avatar:""},
+  {rank:4,name:"Slaughterhouse Rebirth",author:"icedcave",verifier:"Zoink",type:"pointer",time:"2:20",avatar:""},
+  {rank:5,name:"Acheron",author:"Ryamu",verifier:"OniLink",type:"pointer",time:"1:55",avatar:""},
+  {rank:6,name:"Avernus",author:"Bo",verifier:"Zoink",type:"pointer",time:"2:15",avatar:""},
+  {rank:7,name:"Amethyst",author:"Endevvor",verifier:"GGsBoy",type:"pointer",time:"1:42",avatar:""},
   {rank:8,name:"Flamewall",author:"Bianox",verifier:"ItsHybrid",type:"pointer",time:"1:50",avatar:""},
+  {rank:9,name:"Slaughterhouse",author:"icedcave",verifier:"Zoink",type:"pointer",time:"2:30",avatar:""},
+  {rank:10,name:"Oblivion",author:"Riot",verifier:"Trick",type:"pointer",time:"2:45",avatar:""},
   {rank:11,name:"Liptogen",author:"MasterCreaster",verifier:"Hopii",type:"pointer",time:"2:05",avatar:""},
-  {rank:13,name:"Void Spiral",author:"Xeuweu",verifier:"Vityapro12",type:"fan",time:"2:00",avatar:""},
+  {rank:12,name:"Thinking Space II",author:"Atomic",verifier:"Knobbelboy",type:"pointer",time:"2:40",avatar:""},
+
+  // ===== Fan-made =====
+  {rank:13,name:"VOID ASCENSION",author:"Xeuweu",verifier:"GGsBoy",type:"fan",time:"2:10",avatar:""},
   {rank:14,name:"Cat Molodets",author:"MeowCatMurcyk",verifier:"Vityapro12",type:"fan",time:"1:20",avatar:""},
-  {rank:15,name:"NEURAL COLLAPSE",author:"GGsBoy",verifier:"Xeuweu",type:"fan",time:"2:30",avatar:""},
-  {rank:16,name:"Spectral Core",author:"Xapped",verifier:"Vityapro12",type:"fan",time:"2:15",avatar:""},
-  {rank:20,name:"Thinking Space II",author:"Atomic",verifier:"Knobbelboy",type:"pointer",time:"2:40",avatar:""},
-  {rank:22,name:"Joke Level uh",author:"Memeguy",verifier:"Green",type:"pointer",time:"0:45",avatar:""},
-  {rank:25,name:"Neon Horizon",author:"Lonid",verifier:"Lonid",type:"fan",time:"1:55",avatar:""},
-  {rank:30,name:"Black Sun Zenith",author:"Rob",verifier:"Rob",type:"fan",time:"3:00",avatar:""}
+  {rank:15,name:"Void Spiral",author:"Xeuweu",verifier:"Vityapro12",type:"fan",time:"2:00",avatar:""},
+  {rank:16,name:"NEURAL COLLAPSE",author:"GGsBoy",verifier:"Xeuweu",type:"fan",time:"2:30",avatar:""},
+  {rank:17,name:"Spectral Core",author:"Xapped",verifier:"Vityapro12",type:"fan",time:"2:15",avatar:""},
+  {rank:18,name:"SILENT HORIZON X",author:"MythDev",verifier:"Lonid",type:"fan",time:"2:50",avatar:""},
+  {rank:19,name:"Neon Horizon",author:"Lonid",verifier:"Lonid",type:"fan",time:"1:55",avatar:""},
+  {rank:20,name:"Black Sun Zenith",author:"Rob",verifier:"Rob",type:"fan",time:"3:00",avatar:""}
 ];
 
 let currentFilter="all";
@@ -52,7 +62,7 @@ function renderLevels(){
       const d=document.createElement("div");
       d.className="level";
       d.innerHTML=`
-        <img class="avatar" src="${l.avatar||''}">
+        <img class="avatar" src="${l.avatar}">
         <div>
           <b>#${l.rank} ${l.name}</b><br>
           Автор: ${l.author} • Verifier: ${l.verifier}
@@ -60,7 +70,7 @@ function renderLevels(){
       `;
       d.onclick=()=>openModal(`
         <h3>${l.name}</h3>
-        ⏱ ${l.time}<br>
+        ⏱ Тривалість: ${l.time}<br>
         🧠 Очки: ${pointsForRank(l.rank)}<br>
         Тип: ${l.type}
       `);
@@ -85,7 +95,7 @@ levels.forEach(l=>{
   players[l.verifier].verified.push(l);
 });
 
-// рахунок
+// РАХУНОК ОЧОК
 Object.keys(players).forEach(p=>{
   players[p].beaten.forEach(l=>players[p].pts+=pointsForRank(l.rank));
   players[p].verified.forEach(()=>players[p].pts+=VERIFY_POINTS);
@@ -96,10 +106,10 @@ const playersDiv=document.getElementById("players");
 
 Object.entries(players)
   .sort((a,b)=>b[1].pts-a[1].pts)
-  .forEach(([name,data])=>{
+  .forEach(([name,data],i)=>{
     const d=document.createElement("div");
     d.className="player";
-    d.innerHTML=`<b>${name}</b> — ${data.pts} pts`;
+    d.innerHTML=`<b>#${i+1} ${name}</b> — ${data.pts} pts`;
     d.onclick=()=>openModal(`
       <h3>${name}</h3>
       🏆 Пройшов: ${data.beaten.map(l=>l.name).join(", ")||"—"}<br>
