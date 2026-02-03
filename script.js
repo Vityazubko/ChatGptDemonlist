@@ -169,10 +169,77 @@ Object.entries(players)
   });
 
 // ====== МОДАЛКА ======
-function openModal(html){
+function openModal(content){
   document.getElementById("modal").style.display="flex";
-  document.getElementById("modalBody").innerHTML=html;
+  document.getElementById("modalBody").innerHTML = content;
 }
-function closeModal(){
-  document.getElementById("modal").style.display="none";
+
+function showLevelModal(level){
+  const html = `
+    <img class="avatar-large" src="${level.avatar || ''}">
+    <h3>${level.name}</h3>
+    <div class="info-block">
+      <b>Автор:</b> <span>${level.author}</span><br>
+      <b>Verifier:</b> <span>${level.verifier}</span><br>
+      <b>Тип:</b> <span>${level.type}</span><br>
+      <b>Очки:</b> <span>${pointsForRank(level.rank)}</span><br>
+      <b>Тривалість:</b> <span>${level.time}</span>
+    </div>
+  `;
+  openModal(html);
 }
+
+function showPlayerModal(playerName){
+  const data = players[playerName];
+  const html = `
+    <h3>${playerName}</h3>
+    <div class="info-block">
+      <b>Зробив:</b>
+      <div class="tag-list">${data.created.map(l=>`<div class="tag">${l}</div>`).join("")}</div>
+    </div>
+    <div class="info-block">
+      <b>Verifнув:</b>
+      <div class="tag-list">${data.verified.map(l=>`<div class="tag">${l}</div>`).join("")}</div>
+    </div>
+    <div class="info-block">
+      <b>Пройшов:</b>
+      <div class="tag-list">${data.passed.map(l=>`<div class="tag">${l}</div>`).join("")}</div>
+    </div>
+    <div class="info-block">
+      <b>Загальні очки:</b> <span>${data.pts}</span>
+    </div>
+  `;
+  openModal(html);
+}
+
+// ====== РЕНДЕР РІВНІВ ======
+function renderLevels(){
+  levelsDiv.innerHTML="";
+  levels
+    .filter(l=>currentFilter==="all"||l.type===currentFilter)
+    .sort((a,b)=>a.rank-b.rank)
+    .forEach(l=>{
+      const d=document.createElement("div");
+      d.className="level";
+      d.innerHTML=`
+        <img class="avatar" src="${l.avatar}">
+        <div>
+          <b>#${l.rank} ${l.name}</b><br>
+          Автор: ${l.author} • Verifier: ${l.verifier}
+        </div>
+      `;
+      d.onclick = ()=>showLevelModal(l);
+      levelsDiv.appendChild(d);
+    });
+}
+
+// ====== РЕНДЕР ГРАВЦІВ ======
+Object.entries(players)
+  .sort((a,b)=>b[1].pts - a[1].pts)
+  .forEach(([name,data],i)=>{
+    const d=document.createElement("div");
+    d.className="player";
+    d.innerHTML=`<b>#${i+1} ${name}</b> — ${data.pts} pts`;
+    d.onclick = ()=>showPlayerModal(name);
+    playersDiv.appendChild(d);
+  });
