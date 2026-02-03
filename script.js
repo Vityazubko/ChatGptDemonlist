@@ -19,22 +19,20 @@ function pointsForRank(rank){
   return Math.max(50,245-(rank-8)*5);
 }
 
-const VERIFY_POINTS = 40;
-
 // ====== РІВНІ (ВСЕ ПОВЕРНУТО + НОВЕ) ======
 const levels = [
   // ===== PointerCreate =====
-  {rank:1,name:"Xeuweu",author:"Xeuweu",verifier:"Xeuweu",type:"pointer",time:"2:05",avatar:""},
+  {rank:1,name:"Xeuweu",author:"Xeuweu",verifier:"Xeuweu",type:"fan",time:"2:05",avatar:""},
   {rank:2,name:"Tidal Wave",author:"OniLink",verifier:"Ryamu",type:"pointer",time:"2:10",avatar:""},
-  {rank:3,name:"Query",author:"QueryDev",verifier:"Hopii",type:"pointer",time:"1:58",avatar:""},
-  {rank:4,name:"Slaughterhouse Rebirth",author:"icedcave",verifier:"Zoink",type:"pointer",time:"2:20",avatar:""},
+  {rank:3,name:"Query",author:"QueryDev",verifier:"Hopii",type:"fan",time:"1:58",avatar:""},
+  {rank:4,name:"Slaughterhouse Rebirth",author:"icedcave",verifier:"Zoink",type:"fan",time:"2:20",avatar:""},
   {rank:5,name:"Acheron",author:"Ryamu",verifier:"OniLink",type:"pointer",time:"1:55",avatar:""},
   {rank:6,name:"Avernus",author:"Bo",verifier:"Zoink",type:"pointer",time:"2:15",avatar:""},
   {rank:7,name:"Amethyst",author:"Endevvor",verifier:"GGsBoy",type:"pointer",time:"1:42",avatar:""},
   {rank:8,name:"Flamewall",author:"Bianox",verifier:"ItsHybrid",type:"pointer",time:"1:50",avatar:""},
   {rank:9,name:"Slaughterhouse",author:"icedcave",verifier:"Zoink",type:"pointer",time:"2:30",avatar:""},
   {rank:10,name:"Oblivion",author:"Riot",verifier:"Trick",type:"pointer",time:"2:45",avatar:""},
-  {rank:11,name:"Liptogen",author:"MasterCreaster",verifier:"Hopii",type:"pointer",time:"2:05",avatar:""},
+  {rank:11,name:"Liptogen",author:"MasterCreaster",verifier:"Hopii",type:"fan",time:"2:05",avatar:""},
   {rank:12,name:"Thinking Space II",author:"Atomic",verifier:"Knobbelboy",type:"pointer",time:"2:40",avatar:""},
 
   // ===== Fan-made =====
@@ -95,10 +93,16 @@ levels.forEach(l=>{
   players[l.verifier].verified.push(l);
 });
 
-// РАХУНОК ОЧОК
 Object.keys(players).forEach(p=>{
-  players[p].beaten.forEach(l=>players[p].pts+=pointsForRank(l.rank));
-  players[p].verified.forEach(()=>players[p].pts+=VERIFY_POINTS);
+  // очки за проходження
+  players[p].beaten.forEach(l=>{
+    players[p].pts += pointsForRank(l.rank);
+  });
+
+  // очки за верифікацію (x2)
+  players[p].verified.forEach(l=>{
+    players[p].pts += pointsForRank(l.rank) * 2;
+  });
 });
 
 // ====== РЕНДЕР ГРАВЦІВ ======
