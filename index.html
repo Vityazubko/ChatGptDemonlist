@@ -7,27 +7,54 @@
 </head>
 <body>
 
-<h1>🔥 ChatGPT Demonlist 2026</h1>
-<p class="subtitle">Версія 1.3.1 • Fan-made</p>
+<header>
+  <h1>🔥 ChatGPT Demonlist</h1>
+  <p id="version">Версія 1.4 • 2026</p>
+</header>
 
-<div class="buttons">
-  <button onclick="showLevels()">🔥 Топ рівнів</button>
-  <button onclick="showPlayers()">👑 Топ гравців</button>
+<nav>
+  <button onclick="showSection('levels')">🔥 Рівні</button>
+  <button onclick="showSection('players')">👑 Гравці</button>
+  <button onclick="showSection('updates')">🕒 Історія оновлень</button>
+</nav>
+
+<div class="filters">
+  <button onclick="filterType('all')">Всі</button>
+  <button onclick="filterType('pointer')">PointerCreate</button>
+  <button onclick="filterType('fan')">Вигадані</button>
 </div>
 
 <!-- РІВНІ -->
-<div id="levelsSection">
-  <h2>🔥 Levels</h2>
+<section id="levelsSection">
   <div id="levels"></div>
-</div>
+</section>
 
 <!-- ГРАВЦІ -->
-<div id="playersSection" style="display:none;">
-  <h2>👑 Top Players</h2>
+<section id="playersSection" class="hidden">
   <div id="players"></div>
-</div>
+</section>
 
-<!-- МОДАЛЬНЕ ВІКНО -->
+<!-- ОНОВЛЕННЯ -->
+<section id="updatesSection" class="hidden">
+  <div class="update">
+    <h3>1.4</h3>
+    <ul>
+      <li>Новий дизайн</li>
+      <li>Очки за проходження і верифікацію</li>
+      <li>Фільтр PointerCreate / Fan</li>
+      <li>Повернуті всі рівні</li>
+    </ul>
+  </div>
+  <div class="update">
+    <h3>1.3</h3>
+    <ul>
+      <li>Топ гравців</li>
+      <li>Очки за рівні</li>
+    </ul>
+  </div>
+</section>
+
+<!-- МОДАЛКА -->
 <div id="modal" class="modal" onclick="closeModal()">
   <div class="modal-content" onclick="event.stopPropagation()">
     <div id="modalBody"></div>
