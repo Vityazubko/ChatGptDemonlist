@@ -57,8 +57,6 @@ document.addEventListener("DOMContentLoaded", function() {
   };
 });
 
-
-// 🎯 Очки за позицію
 function pointsForRank(rank){
   if(rank===1) return 350;
   if(rank===2) return 325;
@@ -71,7 +69,6 @@ function pointsForRank(rank){
   return Math.max(50, 245 - (rank-8)*5);
 }
 
-// 🧍 Гравці
 const players = {
   Vityapro12: {
     country:"Neo-Ukraine",
@@ -93,7 +90,6 @@ const players = {
   }
 };
 
-// 🔥 Рівні (скорочено, додавай свої)
 const levels = [
   {rank:3,name:"Amethyst",author:"Endevvor",verifier:"GGsBoy",time:"1:42"},
   {rank:13,name:"Void Spiral",author:"Xeuweu",verifier:"Vityapro12",time:"2:05"},
@@ -101,7 +97,6 @@ const levels = [
   {rank:15,name:"NEURAL COLLAPSE",author:"GGsBoy",verifier:"Xeuweu",time:"2:30"},
 ];
 
-// 🎨 Генерація аватарки (SVG)
 function avatar(text){
   const color = "#"+Math.floor(Math.random()*16777215).toString(16);
   return `data:image/svg+xml;utf8,
@@ -111,7 +106,6 @@ function avatar(text){
   </svg>`;
 }
 
-// 🔥 РЕНДЕР РІВНІВ
 const list = document.getElementById("list");
 levels.forEach(l=>{
   const div=document.createElement("div");
@@ -130,7 +124,6 @@ levels.forEach(l=>{
   list.appendChild(div);
 });
 
-// 👑 РЕНДЕР ГРАВЦІВ
 const playersDiv=document.getElementById("players");
 Object.keys(players).forEach(p=>{
   let pts=0;
@@ -152,7 +145,6 @@ Object.keys(players).forEach(p=>{
   playersDiv.appendChild(div);
 });
 
-// 🪟 Модальне
 function openModal(html){
   document.getElementById("modal").style.display="flex";
   document.getElementById("modalBody").innerHTML=html;
