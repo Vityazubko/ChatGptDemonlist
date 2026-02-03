@@ -6,21 +6,11 @@ body {
   padding: 20px;
 }
 
-h1 {
-  text-align: center;
-  color: #ff4040;
-}
+h1 { text-align: center; color: #ff4040; }
+.subtitle { text-align: center; color: #aaa; }
+.version { text-align: center; color: #888; margin-bottom:10px; }
 
-.subtitle {
-  text-align: center;
-  color: #aaa;
-}
-
-.buttons {
-  text-align: center;
-  margin: 20px;
-}
-
+.buttons { text-align: center; margin: 20px; }
 button {
   background: #1c1c1c;
   color: white;
@@ -29,26 +19,22 @@ button {
   margin: 5px;
   cursor: pointer;
 }
-
-button:hover {
-  background: #333;
-}
+button:hover { background: #333; }
 
 .level {
   display: grid;
-  grid-template-columns: 60px 1fr 1fr 140px;
+  grid-template-columns: 50px 2fr 1fr 1fr 1fr;
   padding: 12px;
   margin: 8px 0;
   background: #151515;
+  align-items: center;
 }
 
-.real {
-  border-left: 5px solid red;
-}
-
-.fake {
-  border-left: 5px solid purple;
-}
+.real { border-left: 5px solid red; }
+.fake { border-left: 5px solid purple; }
 
 .rank { color: #ff6060; }
 .difficulty { color: gold; }
+.verifier { color: #66ff66; font-style: italic; }
+
+#history { background:#1c1c1c; padding:10px; margin:10px 0; border-left:4px solid #ff4040; }
