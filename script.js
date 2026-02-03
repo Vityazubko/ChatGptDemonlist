@@ -58,8 +58,8 @@ const players = {
   },
   "GGsBoy": {
     created:["NEURAL COLLAPSE"],
-    verified:["Amethyst","VOID ASCENSION"],
-    passed:["Spectral Core","Xeuweu","Kioker Per Ker"],
+    verified:["Amethyst","VOID ASCENSION","Kioker Per Ker"],
+    passed:["Spectral Core","Xeuweu"],
     pts:0
   },
   "Xeuweu": {
