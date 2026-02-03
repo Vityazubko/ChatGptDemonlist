@@ -76,6 +76,7 @@ section {
   justify-content:center;
   align-items:center;
   z-index:1000;
+  cursor:pointer; /* додати */
 }
 
 .modal-content {
@@ -86,7 +87,9 @@ section {
   width:90%;
   color:#fff;
   box-shadow:0 0 20px rgba(255,255,255,.2);
+  cursor:default; /* щоб не закривалося при кліку на контент */
 }
+
 
 .modal-content h3 {
   margin-top:0;
