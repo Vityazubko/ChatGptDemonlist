@@ -76,7 +76,7 @@ const players = {
   },
   "Lonid": {
     created:["Neon Horizon"],
-    verified:["Neon Horizon","SILENT HORIZON X","Silent World","Silest World"],
+    verified:["Neon Horizon","SILENT HORIZON X","Silest World","Silent World"],
     passed:["Amethyst"],
     pts:0
       },
