@@ -56,3 +56,108 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   };
 });
+
+
+// 🎯 Очки за позицію
+function pointsForRank(rank){
+  if(rank===1) return 350;
+  if(rank===2) return 325;
+  if(rank===3) return 300;
+  if(rank===4) return 285;
+  if(rank===5) return 270;
+  if(rank===6) return 260;
+  if(rank===7) return 250;
+  if(rank===8) return 245;
+  return Math.max(50, 245 - (rank-8)*5);
+}
+
+// 🧍 Гравці
+const players = {
+  Vityapro12: {
+    country:"Neo-Ukraine",
+    beaten:["Void Spiral","Cat Molodets","NEURAL COLLAPSE"],
+    verified:["VOID ASCENSION","Spectral Core"],
+    created:["Void Spiral","Cat Molodets"]
+  },
+  GGsBoy: {
+    country:"Cyber-Japan",
+    beaten:["Amethyst","Eclipse Protocol"],
+    verified:["Amethyst","Quantum Fracture"],
+    created:[]
+  },
+  Hopii: {
+    country:"Pixel-Germany",
+    beaten:["Liptogen"],
+    verified:["Liptogen"],
+    created:[]
+  }
+};
+
+// 🔥 Рівні (скорочено, додавай свої)
+const levels = [
+  {rank:3,name:"Amethyst",author:"Endevvor",verifier:"GGsBoy",time:"1:42"},
+  {rank:13,name:"Void Spiral",author:"Xeuweu",verifier:"Vityapro12",time:"2:05"},
+  {rank:14,name:"Cat Molodets",author:"MeowCatMurcyk",verifier:"Vityapro12",time:"1:20"},
+  {rank:15,name:"NEURAL COLLAPSE",author:"GGsBoy",verifier:"Xeuweu",time:"2:30"},
+];
+
+// 🎨 Генерація аватарки (SVG)
+function avatar(text){
+  const color = "#"+Math.floor(Math.random()*16777215).toString(16);
+  return `data:image/svg+xml;utf8,
+  <svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'>
+  <rect width='40' height='40' rx='8' fill='${color}'/>
+  <text x='20' y='26' font-size='16' fill='white' text-anchor='middle'>${text[0]}</text>
+  </svg>`;
+}
+
+// 🔥 РЕНДЕР РІВНІВ
+const list = document.getElementById("list");
+levels.forEach(l=>{
+  const div=document.createElement("div");
+  div.className="level";
+  div.innerHTML=`
+    <img class="avatar" src="${avatar(l.name)}">
+    #${l.rank} ${l.name}
+  `;
+  div.onclick=()=>openModal(`
+    <h3>${l.name}</h3>
+    ⏱ Тривалість: ${l.time}<br>
+    🧠 Очки: ${pointsForRank(l.rank)}<br>
+    👤 Creator: ${l.author}<br>
+    ✅ Verifier: ${l.verifier}
+  `);
+  list.appendChild(div);
+});
+
+// 👑 РЕНДЕР ГРАВЦІВ
+const playersDiv=document.getElementById("players");
+Object.keys(players).forEach(p=>{
+  let pts=0;
+  players[p].beaten.forEach(b=>{
+    const lvl=levels.find(l=>l.name===b);
+    if(lvl) pts+=pointsForRank(lvl.rank);
+  });
+
+  const div=document.createElement("div");
+  div.className="player";
+  div.innerText=`${p} — ${pts} pts`;
+  div.onclick=()=>openModal(`
+    <h3>${p}</h3>
+    🌍 Країна: ${players[p].country}<br><br>
+    🏆 Пройшов: ${players[p].beaten.join(", ")}<br>
+    ✅ Verifнув: ${players[p].verified.join(", ")}<br>
+    🛠 Створив: ${players[p].created.join(", ")}
+  `);
+  playersDiv.appendChild(div);
+});
+
+// 🪟 Модальне
+function openModal(html){
+  document.getElementById("modal").style.display="flex";
+  document.getElementById("modalBody").innerHTML=html;
+}
+function closeModal(){
+  document.getElementById("modal").style.display="none";
+}
+
