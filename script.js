@@ -25,73 +25,41 @@ const levels = [
   {rank:2,name:"Tidal Wave",author:"OniLink",verifier:"Ryamu",type:"pointer",time:"2:10",avatar:""},
   {rank:3,name:"Query",author:"QueryDev",verifier:"Hopii",type:"fan",time:"1:58",avatar:""},
   {rank:4,name:"Slaughterhouse Rebirth",author:"icedcave",verifier:"Zoink",type:"fan",time:"2:20",avatar:""},
-  {rank:5,name:"Acheron",author:"Ryamu",verifier:"OniLink",type:"pointer",time:"1:55",avatar:""},
-  {rank:6,name:"Avernus",author:"Bo",verifier:"Zoink",type:"pointer",time:"2:15",avatar:""},
-  {rank:7,name:"Amethyst",author:"Endevvor",verifier:"GGsBoy",type:"pointer",time:"1:42",avatar:""},
-  {rank:8,name:"Flamewall",author:"Bianox",verifier:"ItsHybrid",type:"pointer",time:"1:50",avatar:""},
-  {rank:9,name:"Slaughterhouse",author:"icedcave",verifier:"Zoink",type:"pointer",time:"2:30",avatar:""},
-  {rank:10,name:"Oblivion",author:"Riot",verifier:"Trick",type:"pointer",time:"2:45",avatar:""},
-  {rank:11,name:"Liptogen",author:"MasterCreaster",verifier:"Hopii",type:"fan",time:"2:05",avatar:""},
-  {rank:12,name:"Thinking Space II",author:"Atomic",verifier:"Knobbelboy",type:"pointer",time:"2:40",avatar:""},
-  {rank:13,name:"VOID ASCENSION",author:"Xeuweu",verifier:"GGsBoy",type:"fan",time:"2:10",avatar:""},
-  {rank:14,name:"Cat Molodets",author:"MeowCatMurcyk and Vityapro12",verifier:"Vityapro12",type:"fan",time:"1:20",avatar:"C:\Users\User\Downloads\Cat Molodets top 14.png"},
-  {rank:15,name:"Void Spiral",author:"Xeuweu",verifier:"Vityapro12",type:"fan",time:"2:00",avatar:""},
-  {rank:16,name:"NEURAL COLLAPSE",author:"GGsBoy",verifier:"Xeuweu",type:"fan",time:"2:30",avatar:""},
-  {rank:17,name:"Spectral Core",author:"Xapped",verifier:"Vityapro12",type:"fan",time:"2:15",avatar:""},
-  {rank:18,name:"SILENT HORIZON X",author:"MythDev",verifier:"Lonid",type:"fan",time:"2:50",avatar:""},
-  {rank:19,name:"Neon Horizon",author:"Lonid",verifier:"Lonid",type:"fan",time:"1:55",avatar:""},
-  {rank:20,name:"Black Sun Zenith",author:"Rob",verifier:"Rob",type:"fan",time:"3:00",avatar:""}
+  {rank:5,name:"Kioker Per Ker",author:"Kioker",verifier:"GGsBoy",type:"pointer",time:"2:12",avatar:""},
+  {rank:6,name:"Acheron",author:"Ryamu",verifier:"OniLink",type:"pointer",time:"1:55",avatar:""},
+  {rank:7,name:"Avernus",author:"Bo",verifier:"Zoink",type:"pointer",time:"2:15",avatar:""},
+  {rank:8,name:"Amethyst",author:"Endevvor",verifier:"GGsBoy",type:"pointer",time:"1:42",avatar:""},
+  {rank:9,name:"Silest World",author:"Silest",verifier:"Lonid",type:"pointer",time:"2:05",avatar:""},
+  {rank:10,name:"Flamewall",author:"Bianox",verifier:"ItsHybrid",type:"pointer",time:"1:50",avatar:""},
+  {rank:11,name:"Slaughterhouse",author:"icedcave",verifier:"Zoink",type:"pointer",time:"2:30",avatar:""},
+  {rank:12,name:"Oblivion",author:"Riot",verifier:"Trick",type:"pointer",time:"2:45",avatar:""},
+  {rank:13,name:"Liptogen",author:"MasterCreaster",verifier:"Hopii",type:"fan",time:"2:05",avatar:""},
+  {rank:14,name:"Thinking Space II",author:"Atomic",verifier:"Knobbelboy",type:"pointer",time:"2:40",avatar:""},
+  {rank:15,name:"VOID ASCENSION",author:"Xeuweu",verifier:"GGsBoy",type:"fan",time:"2:10",avatar:""},
+  {rank:16,name:"Cat Molodets",author:"MeowCatMurcyk",verifier:"Vityapro12",type:"fan",time:"1:20",avatar:""},
+  {rank:17,name:"Void Spiral",author:"Xeuweu",verifier:"Vityapro12",type:"fan",time:"2:00",avatar:""},
+  {rank:18,name:"NEURAL COLLAPSE",author:"GGsBoy",verifier:"Xeuweu",type:"fan",time:"2:30",avatar:""},
+  {rank:19,name:"Spectral Core",author:"Xapped",verifier:"Vityapro12",type:"fan",time:"2:15",avatar:""},
+  {rank:20,name:"SILENT HORIZON X",author:"MythDev",verifier:"Lonid",type:"fan",time:"2:50",avatar:""},
+  {rank:21,name:"Neon Horizon",author:"Lonid",verifier:"Lonid",type:"fan",time:"1:55",avatar:""},
+  {rank:22,name:"Black Sun Zenith",author:"Rob",verifier:"Rob",type:"fan",time:"3:00",avatar:""},
+  {rank:23,name:"Silent World",author:"Silest",verifier:"Lonid",type:"fan",time:"2:30",avatar:""}
 ];
 
 let currentFilter="all";
 
-// ====== РЕНДЕР РІВНІВ ======
-const levelsDiv=document.getElementById("levels");
-
-function renderLevels(){
-  levelsDiv.innerHTML="";
-  levels
-    .filter(l=>currentFilter==="all"||l.type===currentFilter)
-    .sort((a,b)=>a.rank-b.rank)
-    .forEach(l=>{
-      const d=document.createElement("div");
-      d.className="level";
-      d.innerHTML=`
-        <img class="avatar" src="${l.avatar}">
-        <div>
-          <b>#${l.rank} ${l.name}</b><br>
-          Автор: ${l.author} • Verifier: ${l.verifier}
-        </div>
-      `;
-      d.onclick=()=>openModal(`
-        <h3>${l.name}</h3>
-        ⏱ Тривалість: ${l.time}<br>
-        🧠 Очки: ${pointsForRank(l.rank)}<br>
-        Тип: ${l.type}
-      `);
-      levelsDiv.appendChild(d);
-    });
-}
-
-function filterType(type){
-  currentFilter=type;
-  renderLevels();
-}
-
-renderLevels();
-
-// ====== ГРАВЦІ ======
+// ====== ГРАВЦІ (вручну) ======
 const players = {
-  "Vityapro12": {
+    "Vityapro12": {
     created:["Cat Molodets"],
     verified:["Void Spiral","Cat Molodets","Spectral Core"],
-    passed:["Amethyst","Flamewall","Slaughterhouse","Oblivion"], // пройшли чужі рівні
+    passed:["Amethyst","Flamewall","Slaughterhouse","Oblivion","Slaughterhouse Rebirth","Silent World"], // пройшли чужі рівні
     pts:0
   },
   "GGsBoy": {
     created:["NEURAL COLLAPSE"],
     verified:["Amethyst","VOID ASCENSION"],
-    passed:["Spectral Core"],
+    passed:["Spectral Core","Xeuweu"],
     pts:0
   },
   "Xeuweu": {
@@ -115,7 +83,7 @@ const players = {
   "Zoink": {
     created:[],
     verified:["Slaughterhouse Rebirth","Avernus","Slaughterhouse"],
-    passed:["Amethyst,Flamewall,Thinking Space II"],
+    passed:["Amethyst","Flamewall","Thinking Space II","Acheron"],
     pts:0
        },
   "Ryamu": {
@@ -127,7 +95,19 @@ const players = {
   "OniLink": {
     created:["Tidal Wave"],
     verified:["Acheron"],
-    passed:["SILENT HORIZON X","Slaughterhouse"],
+    passed:["SILENT HORIZON X","Slaughterhouse","Xeuweu"],
+    pts:0
+             },
+  "bkold": {
+    created:[],
+    verified:[],
+    passed:["Tidal Wave","Slaughterhouse Rebirth","Avernus","VOID ASCENSION","Cat Molodets"],
+    pts:0
+               },
+  "Hopii": {
+    created:[],
+    verified:["Query","Liptogen"],
+    passed:["Tidal Wave","Cat Molodets","Silent World"],
     pts:0
   }
 };
@@ -150,29 +130,56 @@ Object.keys(players).forEach(p=>{
   });
 });
 
+// ====== РЕНДЕР РІВНІВ ======
+const levelsDiv=document.getElementById("levels");
+
+function renderLevels(){
+  levelsDiv.innerHTML="";
+  levels
+    .filter(l=>currentFilter==="all"||l.type===currentFilter)
+    .sort((a,b)=>a.rank-b.rank)
+    .forEach(l=>{
+      const d=document.createElement("div");
+      d.className="level";
+      d.innerHTML=`
+        <img class="avatar" src="${l.avatar}">
+        <div>
+          <b>#${l.rank} ${l.name}</b><br>
+          Автор: ${l.author} • Verifier: ${l.verifier}
+        </div>
+      `;
+      d.onclick = ()=>showLevelModal(l);
+      levelsDiv.appendChild(d);
+    });
+}
+
 // ====== РЕНДЕР ГРАВЦІВ ======
 const playersDiv=document.getElementById("players");
 
-Object.entries(players)
-  .sort((a,b)=>b[1].pts - a[1].pts)
-  .forEach(([name,data],i)=>{
-    const d=document.createElement("div");
-    d.className="player";
-    d.innerHTML=`<b>#${i+1} ${name}</b> — ${data.pts} pts`;
-    d.onclick=()=>openModal(`
-      <h3>${name}</h3>
-      🏗 Зробив: ${data.created.join(", ")||"—"}<br>
-      ✅ Verifнув: ${data.verified.join(", ")||"—"}<br>
-      🏆 Пройшов: ${data.passed.join(", ")||"—"}
-    `);
-    playersDiv.appendChild(d);
-  });
-
-// ====== МОДАЛКА ======
-function openModal(content){
-  document.getElementById("modal").style.display="flex";
-  document.getElementById("modalBody").innerHTML = content;
+function renderPlayers(){
+  playersDiv.innerHTML = "";
+  Object.entries(players)
+    .sort((a,b)=>b[1].pts - a[1].pts)
+    .forEach(([name,data],i)=>{
+      const d=document.createElement("div");
+      d.className="player";
+      d.innerHTML=`<b>#${i+1} ${name}</b> — ${data.pts} pts`;
+      d.onclick = ()=>showPlayerModal(name);
+      playersDiv.appendChild(d);
+    });
 }
+
+// ====== МОДАЛКИ ======
+const modal = document.getElementById("modal");
+const modalContent = document.querySelector(".modal-content");
+
+function openModal(html){
+  modal.style.display="flex";
+  document.getElementById("modalBody").innerHTML=html;
+}
+
+modal.addEventListener("click", ()=>{ modal.style.display="none"; });
+modalContent.addEventListener("click", e => e.stopPropagation());
 
 function showLevelModal(level){
   const html = `
@@ -210,40 +217,8 @@ function showPlayerModal(playerName){
     </div>
   `;
   openModal(html);
-
-  document.getElementById("modal").addEventListener("click", closeModal);
-document.querySelector(".modal-content").addEventListener("click", e => e.stopPropagation());
-
 }
 
-// ====== РЕНДЕР РІВНІВ ======
-function renderLevels(){
-  levelsDiv.innerHTML="";
-  levels
-    .filter(l=>currentFilter==="all"||l.type===currentFilter)
-    .sort((a,b)=>a.rank-b.rank)
-    .forEach(l=>{
-      const d=document.createElement("div");
-      d.className="level";
-      d.innerHTML=`
-        <img class="avatar" src="${l.avatar}">
-        <div>
-          <b>#${l.rank} ${l.name}</b><br>
-          Автор: ${l.author} • Verifier: ${l.verifier}
-        </div>
-      `;
-      d.onclick = ()=>showLevelModal(l);
-      levelsDiv.appendChild(d);
-    });
-}
-
-// ====== РЕНДЕР ГРАВЦІВ ======
-Object.entries(players)
-  .sort((a,b)=>b[1].pts - a[1].pts)
-  .forEach(([name,data],i)=>{
-    const d=document.createElement("div");
-    d.className="player";
-    d.innerHTML=`<b>#${i+1} ${name}</b> — ${data.pts} pts`;
-    d.onclick = ()=>showPlayerModal(name);
-    playersDiv.appendChild(d);
-  });
+// ====== ІНІЦІАЛІЗАЦІЯ ======
+renderLevels();
+renderPlayers();
