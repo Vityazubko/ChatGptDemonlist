@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>ChatGPT Demonlist</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🔥 ChatGPT Demonlist 2026</h1>
+<p class="subtitle">Fan-made • Pointercrate + Original Levels</p>
+
+<div class="buttons">
+  <button onclick="filterLevels('all')">⚫ Разом</button>
+  <button onclick="filterLevels('real')">🔴 Pointercrate</button>
+  <button onclick="filterLevels('fake')">🟣 Вигадані</button>
+</div>
+
+<div id="list"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
