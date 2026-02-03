@@ -34,7 +34,7 @@ const levels = [
   {rank:11,name:"Liptogen",author:"MasterCreaster",verifier:"Hopii",type:"fan",time:"2:05",avatar:""},
   {rank:12,name:"Thinking Space II",author:"Atomic",verifier:"Knobbelboy",type:"pointer",time:"2:40",avatar:""},
   {rank:13,name:"VOID ASCENSION",author:"Xeuweu",verifier:"GGsBoy",type:"fan",time:"2:10",avatar:""},
-  {rank:14,name:"Cat Molodets",author:"MeowCatMurcyk",verifier:"Vityapro12",type:"fan",time:"1:20",avatar:""},
+  {rank:14,name:"Cat Molodets",author:"MeowCatMurcyk and Vityapro12",verifier:"Vityapro12",type:"fan",time:"1:20",avatar:"C:\Users\User\Downloads\Cat Molodets top 14.png"},
   {rank:15,name:"Void Spiral",author:"Xeuweu",verifier:"Vityapro12",type:"fan",time:"2:00",avatar:""},
   {rank:16,name:"NEURAL COLLAPSE",author:"GGsBoy",verifier:"Xeuweu",type:"fan",time:"2:30",avatar:""},
   {rank:17,name:"Spectral Core",author:"Xapped",verifier:"Vityapro12",type:"fan",time:"2:15",avatar:""},
@@ -110,6 +110,24 @@ const players = {
     created:["Neon Horizon"],
     verified:["Neon Horizon"],
     passed:["Amethyst"],
+    pts:0
+      },
+  "Zoink": {
+    created:[],
+    verified:["Slaughterhouse Rebirth","Avernus","Slaughterhouse"],
+    passed:["Amethyst,Flamewall,Thinking Space II"],
+    pts:0
+       },
+  "Ryamu": {
+    created:["Acheron"],
+    verified:["Tidal Wave"],
+    passed:["Query","Slaughterhouse Rebirth","Slaughterhouse"],
+    pts:0
+         },
+  "OniLink": {
+    created:["Tidal Wave"],
+    verified:["Acheron"],
+    passed:["SILENT HORIZON X","Slaughterhouse"],
     pts:0
   }
 };
