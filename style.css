@@ -67,18 +67,73 @@ section {
 
 .hidden { display:none; }
 
+/* Модалка */
 .modal {
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.7);
+  background:rgba(0,0,0,.8);
   display:none;
   justify-content:center;
   align-items:center;
+  z-index:1000;
 }
 
 .modal-content {
-  background:#181828;
-  padding:20px;
+  background:#1e1e30;
+  padding:25px;
   border-radius:15px;
-  max-width:450px;
+  max-width:500px;
+  width:90%;
+  color:#fff;
+  box-shadow:0 0 20px rgba(255,255,255,.2);
+}
+
+.modal-content h3 {
+  margin-top:0;
+  font-size:1.8em;
+  text-align:center;
+  color:#ff6a00;
+}
+
+.modal-content .avatar-large {
+  display:block;
+  margin:auto;
+  width:120px;
+  height:120px;
+  border-radius:15px;
+  object-fit:cover;
+  margin-bottom:15px;
+  border:3px solid #ff6a00;
+}
+
+.modal-content .info-block {
+  margin:10px 0;
+  padding:10px;
+  background:#2a2a40;
+  border-radius:12px;
+}
+
+.modal-content .info-block b {
+  display:inline-block;
+  width:120px;
+  color:#ffa500;
+}
+
+.modal-content .info-block span {
+  color:#a0a0ff;
+}
+
+.modal-content .tag-list {
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:5px;
+}
+
+.modal-content .tag {
+  background:#333366;
+  padding:5px 10px;
+  border-radius:8px;
+  font-size:0.9em;
+  color:#fff;
 }
