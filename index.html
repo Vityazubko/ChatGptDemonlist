@@ -8,55 +8,31 @@
 <body>
 
 <h1>🔥 ChatGPT Demonlist 2026</h1>
-<p class="subtitle">Fan-made • Pointercrate + Original Levels</p>
-<p class="version">Версія 1.2</p>
+<p class="subtitle">Версія 1.3.1 • Fan-made</p>
 
 <div class="buttons">
-  <button onclick="filterLevels('all')">⚫ Разом</button>
-  <button onclick="filterLevels('real')">🔴 Pointercrate</button>
-  <button onclick="filterLevels('fake')">🟣 Вигадані</button>
-  <button onclick="showHistory()">📝 Історія оновлень</button>
-</div>
-
-  <div class="buttons">
   <button onclick="showLevels()">🔥 Топ рівнів</button>
   <button onclick="showPlayers()">👑 Топ гравців</button>
 </div>
 
-  <div id="levelsSection">
+<!-- РІВНІ -->
+<div id="levelsSection">
   <h2>🔥 Levels</h2>
-  <div id="list"></div>
+  <div id="levels"></div>
 </div>
 
+<!-- ГРАВЦІ -->
 <div id="playersSection" style="display:none;">
   <h2>👑 Top Players</h2>
   <div id="players"></div>
 </div>
 
-
-<div id="history" style="display:none;">
-  <h3>Історія змін</h3>
-  <ul>
-    <li>Версія 1.0 – базовий Mixed Demonlist Top 11</li>
-     <li>Версія 1.1 – додано авторів Thinking Space II, Amethyst, Flamewall; Verifier; нові рівні 4 Pointercrate + 5 вигадані, Cat Molodets</li>
-    <li>Версія 1.2 – додано нові рівні: Liptogen, Joke Level; змінено Verifier для Eclipse Protocol, Neon Horizon, Black Sun Zenith; переміщено Void Spiral, Flamewall, Amethyst, Cat Molodets</li>
-  </ul>
-</div>
-
-<div id="list"></div>
-
-  <h2>👑 Top Players</h2>
-<div id="players"></div>
-
-<h2>🔥 Levels</h2>
-<div id="list"></div>
-
+<!-- МОДАЛЬНЕ ВІКНО -->
 <div id="modal" class="modal" onclick="closeModal()">
   <div class="modal-content" onclick="event.stopPropagation()">
     <div id="modalBody"></div>
   </div>
 </div>
-
 
 <script src="script.js"></script>
 </body>
