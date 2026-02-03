@@ -34,13 +34,14 @@ function avatar(text){
 
 // ===== РІВНІ =====
 const levels = [
-  {rank:1,name:"Tidal Wave",author:"OniLink",verifier:"Ryamu",time:"2:10"},
+  {rank:1,name:"Tidal Wave",author:"OniLink",verifier:"Ryamu",time:"2:10",avatar:},
   {rank:2,name:"Acheron",author:"Ryamu",verifier:"OniLink",time:"1:55"},
   {rank:3,name:"Amethyst",author:"Endevvor",verifier:"GGsBoy",time:"1:42"},
+  {rank:4,name:"VOID ASCENSION",author:"Xeuweu",verifier:"Vityapro12",time:"1:42"},
   {rank:8,name:"Flamewall",author:"Bianox",verifier:"ItsHybrid",time:"1:50"},
-  {rank:11,name:"Liptogen",author:"MasterCreaster",verifier:"Hopii",time:"2:05"},
+  {rank:11,name:"Liptogen",author:"MasterCreaster",verifier:"Hopii",time:"2:05",avatar:},
   {rank:13,name:"Void Spiral",author:"Xeuweu",verifier:"Vityapro12",time:"2:00"},
-  {rank:14,name:"Cat Molodets",author:"MeowCatMurcyk",verifier:"Vityapro12",time:"1:20"},
+  {rank:14,name:"Cat Molodets",author:"MeowCatMurcyk",verifier:"Vityapro12",time:"1:20",avatar:C:\Users\User\Downloads\Cat Molodets top 14.png},
   {rank:15,name:"NEURAL COLLAPSE",author:"GGsBoy",verifier:"Xeuweu",time:"2:30"},
   {rank:16,name:"Spectral Core",author:"Xapped",verifier:"Vityapro12",time:"2:15"}
 ];
