@@ -69,26 +69,25 @@ function pointsForRank(rank){
   return Math.max(50, 245 - (rank-8)*5);
 }
 
-const players = {
-  Vityapro12: {
-    country:"Neo-Ukraine",
-    beaten:["Void Spiral","Cat Molodets","NEURAL COLLAPSE"],
-    verified:["VOID ASCENSION","Spectral Core"],
-    created:["Void Spiral","Cat Molodets"]
-  },
-  GGsBoy: {
-    country:"Cyber-Japan",
-    beaten:["Amethyst","Eclipse Protocol"],
-    verified:["Amethyst","Quantum Fracture"],
-    created:[]
-  },
-  Hopii: {
-    country:"Pixel-Germany",
-    beaten:["Liptogen"],
-    verified:["Liptogen"],
-    created:[]
+const players = {};
+
+levels.forEach(l=>{
+  // creator
+  if(!players[l.author]){
+    players[l.author]={country:"Unknown Realm",beaten:[],verified:[],created:[]};
   }
-};
+  players[l.author].created.push(l.name);
+
+  // verifier
+  if(!players[l.verifier]){
+    players[l.verifier]={country:"Unknown Realm",beaten:[],verified:[],created:[]};
+  }
+  players[l.verifier].verified.push(l.name);
+});
+
+players["Vityapro12"].beaten.push("Void Spiral","Cat Molodets");
+players["GGsBoy"].beaten.push("Amethyst");
+
 
 const levels = [
   {rank:3,name:"Amethyst",author:"Endevvor",verifier:"GGsBoy",time:"1:42"},
@@ -129,6 +128,8 @@ levels.forEach(l=>{
 });
 
 const playersDiv=document.getElementById("players");
+playersDiv.innerHTML="";
+
 Object.keys(players).forEach(p=>{
   let pts=0;
   players[p].beaten.forEach(b=>{
@@ -138,16 +139,17 @@ Object.keys(players).forEach(p=>{
 
   const div=document.createElement("div");
   div.className="player";
-  div.innerText=`${p} — ${pts} pts`;
+  div.innerHTML=`👤 ${p} — <b>${pts}</b> pts`;
   div.onclick=()=>openModal(`
     <h3>${p}</h3>
     🌍 Країна: ${players[p].country}<br><br>
-    🏆 Пройшов: ${players[p].beaten.join(", ")}<br>
-    ✅ Verifнув: ${players[p].verified.join(", ")}<br>
-    🛠 Створив: ${players[p].created.join(", ")}
+    🏆 Пройшов: ${players[p].beaten.join(", ") || "—"}<br>
+    ✅ Verifнув: ${players[p].verified.join(", ") || "—"}<br>
+    🛠 Створив: ${players[p].created.join(", ") || "—"}
   `);
   playersDiv.appendChild(div);
 });
+
 
 function openModal(html){
   document.getElementById("modal").style.display="flex";
