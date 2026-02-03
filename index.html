@@ -1,48 +1,33 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>ChatGPT Demonlist</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 <body>
-  ...
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const levels = [
-        {rank:1, name:"Tidal Wave", author:"OniLink", diff:"Extreme", type:"real"},
-        {rank:2, name:"Acheron", author:"Ryamu", diff:"Extreme", type:"real"},
-        {rank:3, name:"VOID ASCENSION", author:"Xeuweu", diff:"Impossible+", type:"fake"},
-        {rank:4, name:"Avernus", author:"Bo", diff:"Extreme", type:"real"},
-        {rank:5, name:"SILENT HORIZON X", author:"MythDev", diff:"Impossible", type:"fake"},
-        {rank:6, name:"Slaughterhouse", author:"icedcave", diff:"Extreme", type:"real"},
-        {rank:7, name:"Thinking Space II", author:"?", diff:"Extreme", type:"real"},
-        {rank:8, name:"Spectral Core", author:"Xapped", diff:"Extreme+", type:"fake"},
-        {rank:9, name:"Amethyst", author:"?", diff:"Extreme", type:"real"},
-        {rank:10, name:"Flamewall", author:"?", diff:"Extreme", type:"real"},
-        {rank:11, name:"NEURAL COLLAPSE", author:"GGsBoy", diff:"Extreme+", type:"fake"}
-      ];
 
-      const list = document.getElementById("list");
+<h1>🔥 ChatGPT Demonlist 2026</h1>
+<p class="subtitle">Fan-made • Pointercrate + Original Levels</p>
+<p class="version">Версія 1.1</p>
 
-      function render(filter) {
-        list.innerHTML = "";
-        levels
-          .filter(l => filter === "all" || l.type === filter)
-          .forEach(l => {
-            const div = document.createElement("div");
-            div.className = `level ${l.type}`;
-            div.innerHTML = `
-              <span class="rank">#${l.rank}</span>
-              <span>${l.name}</span>
-              <span>${l.author}</span>
-              <span class="difficulty">${l.diff}</span>
-            `;
-            list.appendChild(div);
-          });
-      }
+<div class="buttons">
+  <button onclick="filterLevels('all')">⚫ Разом</button>
+  <button onclick="filterLevels('real')">🔴 Pointercrate</button>
+  <button onclick="filterLevels('fake')">🟣 Вигадані</button>
+  <button onclick="showHistory()">📝 Історія оновлень</button>
+</div>
 
-      function filterLevels(type) {
-        render(type);
-      }
+<div id="history" style="display:none;">
+  <h3>Історія оновлень</h3>
+  <ul>
+    <li>Версія 1.1 – додано авторів, Verifier, нові рівні</li>
+    <li>Версія 1.0 – базовий Mixed Demonlist Top 11</li>
+  </ul>
+</div>
 
-      // Робимо перемикачі глобально
-      window.filterLevels = filterLevels;
+<div id="list"></div>
 
-      render("all");
-    });
-  </script>
+<script src="script.js"></script>
 </body>
+</html>
