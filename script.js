@@ -98,13 +98,17 @@ const levels = [
 ];
 
 function avatar(text){
-  const color = "#"+Math.floor(Math.random()*16777215).toString(16);
-  return `data:image/svg+xml;utf8,
-  <svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'>
-  <rect width='40' height='40' rx='8' fill='${color}'/>
-  <text x='20' y='26' font-size='16' fill='white' text-anchor='middle'>${text[0]}</text>
+  const color = Math.floor(Math.random()*16777215).toString(16);
+  const svg = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+    <rect width="40" height="40" rx="8" fill="#${color}"/>
+    <text x="20" y="26" font-size="16" fill="white" text-anchor="middle" font-family="Arial">
+      ${text[0]}
+    </text>
   </svg>`;
+  return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
 }
+
 
 const list = document.getElementById("list");
 levels.forEach(l=>{
