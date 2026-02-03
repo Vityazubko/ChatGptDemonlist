@@ -1,0 +1,38 @@
+const levels = [
+  {rank:1, name:"Tidal Wave", author:"OniLink", diff:"Extreme", type:"real"},
+  {rank:2, name:"Acheron", author:"Ryamu", diff:"Extreme", type:"real"},
+  {rank:3, name:"VOID ASCENSION", author:"Xeuweu", diff:"Impossible+", type:"fake"},
+  {rank:4, name:"Avernus", author:"Bo", diff:"Extreme", type:"real"},
+  {rank:5, name:"SILENT HORIZON X", author:"MythDev", diff:"Impossible", type:"fake"},
+  {rank:6, name:"Slaughterhouse", author:"icedcave", diff:"Extreme", type:"real"},
+  {rank:7, name:"Thinking Space II", author:"?", diff:"Extreme", type:"real"},
+  {rank:8, name:"Spectral Core", author:"Xapped", diff:"Extreme+", type:"fake"},
+  {rank:9, name:"Amethyst", author:"?", diff:"Extreme", type:"real"},
+  {rank:10, name:"Flamewall", author:"?", diff:"Extreme", type:"real"},
+  {rank:11, name:"NEURAL COLLAPSE", author:"GGsBoy", diff:"Extreme+", type:"fake"}
+];
+
+const list = document.getElementById("list");
+
+function render(filter) {
+  list.innerHTML = "";
+  levels
+    .filter(l => filter === "all" || l.type === filter)
+    .forEach(l => {
+      const div = document.createElement("div");
+      div.className = `level ${l.type}`;
+      div.innerHTML = `
+        <span class="rank">#${l.rank}</span>
+        <span>${l.name}</span>
+        <span>${l.author}</span>
+        <span class="difficulty">${l.diff}</span>
+      `;
+      list.appendChild(div);
+    });
+}
+
+function filterLevels(type) {
+  render(type);
+}
+
+render("all");
