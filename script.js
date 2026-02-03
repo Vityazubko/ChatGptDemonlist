@@ -2,28 +2,24 @@ document.addEventListener("DOMContentLoaded", function() {
   const levels = [
     {rank:1, name:"Tidal Wave", author:"OniLink", diff:"Extreme", verifier:"Ryamu", type:"real"},
     {rank:2, name:"Acheron", author:"Ryamu", diff:"Extreme", verifier:"OniLink", type:"real"},
-    {rank:3, name:"VOID ASCENSION", author:"Xeuweu", diff:"Impossible+", verifier:"Vityapro12", type:"fake"},
-    {rank:4, name:"Avernus", author:"Bo", diff:"Extreme", verifier:"Diamond", type:"real"},
+    {rank:3, name:"Amethyst", author:"Endevvor", diff:"Extreme", verifier:"GGsBoy", type:"real"}, // переміщено
+    {rank:4, name:"VOID ASCENSION", author:"Xeuweu", diff:"Impossible+", verifier:"Vityapro12", type:"fake"},
     {rank:5, name:"SILENT HORIZON X", author:"MythDev", diff:"Impossible", verifier:"Vityapro12", type:"fake"},
     {rank:6, name:"Slaughterhouse", author:"icedcave", diff:"Extreme", verifier:"Bo", type:"real"},
     {rank:7, name:"Thinking Space II", author:"Viprin", diff:"Extreme", verifier:"Vityapro12", type:"real"},
-    {rank:8, name:"Spectral Core", author:"Xapped", diff:"Extreme+", verifier:"Vityapro12", type:"fake"},
-    {rank:9, name:"Amethyst", author:"Endevvor", diff:"Extreme", verifier:"GGsBoy", type:"real"},
-    {rank:10, name:"Flamewall", author:"Bianox", diff:"Extreme", verifier:"ItsHybrid", type:"real"},
-    {rank:11, name:"NEURAL COLLAPSE", author:"GGsBoy", diff:"Extreme+", verifier:"Xeuweu", type:"fake"},
-    
-    // Нові рівні Pointercrate
-    {rank:12, name:"Solar Flare", author:"Viprin", diff:"Extreme+", verifier:"Ryamu", type:"real"},
-    {rank:13, name:"Shardscapes", author:"Diamond", diff:"Extreme", verifier:"Bo", type:"real"},
-    {rank:14, name:"Quantum Fracture", author:"Xeuweu", diff:"Impossible", verifier:"GGsBoy", type:"real"},
-    {rank:15, name:"Oblivion", author:"Bianox", diff:"Extreme+", verifier:"ItsHybrid", type:"real"},
-    
-    // Нові вигадані рівні
-    {rank:16, name:"Black Sun Zenith", author:"MythDev", diff:"Impossible", verifier:"Vityapro12", type:"fake"},
-    {rank:17, name:"Eclipse Protocol", author:"Xapped", diff:"Extreme+", verifier:"Vityapro12", type:"fake"},
-    {rank:18, name:"Void Spiral", author:"Xeuweu", diff:"Extreme+", verifier:"Vityapro12", type:"fake"},
-    {rank:19, name:"Cat Molodets", author:"MeowCatMurcyk", diff:"Extreme", verifier:"Vityapro12", type:"fake"},
-    {rank:20, name:"Neon Horizon", author:"MythDev", diff:"Extreme+", verifier:"Vityapro12", type:"fake"}
+    {rank:8, name:"Flamewall", author:"Bianox", diff:"Extreme", verifier:"ItsHybrid", type:"real"}, // переміщено
+    {rank:9, name:"Joke Level", author:"Memeguy", diff:"Extreme+", verifier:"Green", type:"fake"}, // новий
+    {rank:10, name:"Avernus", author:"Bo", diff:"Extreme", verifier:"Diamond", type:"real"},
+    {rank:11, name:"Liptogen", author:"MasterCreaster", diff:"Impossible", verifier:"Hopii", type:"fake"}, // новий
+    {rank:12, name:"Shardscapes", author:"Diamond", diff:"Extreme", verifier:"Bo", type:"real"},
+    {rank:13, name:"Void Spiral", author:"Xeuweu", diff:"Extreme+", verifier:"Vityapro12", type:"fake"}, // переміщено
+    {rank:14, name:"Cat Molodets", author:"MeowCatMurcyk", diff:"Extreme", verifier:"Vityapro12", type:"fake"}, // переміщено
+    {rank:15, name:"Quantum Fracture", author:"Xeuweu", diff:"Impossible", verifier:"GGsBoy", type:"real"},
+    {rank:16, name:"Oblivion", author:"Bianox", diff:"Extreme+", verifier:"ItsHybrid", type:"real"},
+    {rank:17, name:"Black Sun Zenith", author:"MythDev", diff:"Impossible", verifier:"Rob", type:"fake"}, // новий Verifier
+    {rank:18, name:"Eclipse Protocol", author:"Xapped", diff:"Extreme+", verifier:"GGsBoy", type:"fake"}, // новий Verifier
+    {rank:19, name:"Thinking Specter", author:"Xeuweu", diff:"Extreme+", verifier:"Vityapro12", type:"fake"},
+    {rank:20, name:"Neon Horizon", author:"MythDev", diff:"Extreme+", verifier:"Lonid", type:"fake"} // новий Verifier
   ];
 
   const list = document.getElementById("list");
@@ -59,4 +55,5 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   };
 });
+
 
