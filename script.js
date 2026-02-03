@@ -19,9 +19,8 @@ function pointsForRank(rank){
   return Math.max(50,245-(rank-8)*5);
 }
 
-// ====== РІВНІ (ВСЕ ПОВЕРНУТО + НОВЕ) ======
+// ====== РІВНІ ======
 const levels = [
-  // ===== PointerCreate =====
   {rank:1,name:"Xeuweu",author:"Xeuweu",verifier:"Xeuweu",type:"fan",time:"2:05",avatar:""},
   {rank:2,name:"Tidal Wave",author:"OniLink",verifier:"Ryamu",type:"pointer",time:"2:10",avatar:""},
   {rank:3,name:"Query",author:"QueryDev",verifier:"Hopii",type:"fan",time:"1:58",avatar:""},
@@ -34,8 +33,6 @@ const levels = [
   {rank:10,name:"Oblivion",author:"Riot",verifier:"Trick",type:"pointer",time:"2:45",avatar:""},
   {rank:11,name:"Liptogen",author:"MasterCreaster",verifier:"Hopii",type:"fan",time:"2:05",avatar:""},
   {rank:12,name:"Thinking Space II",author:"Atomic",verifier:"Knobbelboy",type:"pointer",time:"2:40",avatar:""},
-
-  // ===== Fan-made =====
   {rank:13,name:"VOID ASCENSION",author:"Xeuweu",verifier:"GGsBoy",type:"fan",time:"2:10",avatar:""},
   {rank:14,name:"Cat Molodets",author:"MeowCatMurcyk",verifier:"Vityapro12",type:"fan",time:"1:20",avatar:""},
   {rank:15,name:"Void Spiral",author:"Xeuweu",verifier:"Vityapro12",type:"fan",time:"2:00",avatar:""},
@@ -84,24 +81,54 @@ function filterType(type){
 renderLevels();
 
 // ====== ГРАВЦІ ======
-const players={};
+const players = {
+  "Vityapro12": {
+    created:["Cat Molodets"],
+    verified:["Void Spiral","Cat Molodets"],
+    passed:["Amethyst","Flamewall"], // пройшли чужі рівні
+    pts:0
+  },
+  "GGsBoy": {
+    created:["Amethyst","NEURAL COLLAPSE"],
+    verified:["Amethyst"],
+    passed:["VOID ASCENSION","Spectral Core"],
+    pts:0
+  },
+  "Xeuweu": {
+    created:["Xeuweu","VOID ASCENSION","Void Spiral"],
+    verified:["Xeuweu","VOID ASCENSION"],
+    passed:["Amethyst","Oblivion"],
+    pts:0
+  },
+  "MeowCatMurcyk": {
+    created:["Cat Molodets"],
+    verified:[],
+    passed:["Flamewall","NEURAL COLLAPSE"],
+    pts:0
+  },
+  "Lontid": {
+    created:["Neon Horizon"],
+    verified:["Neon Horizon"],
+    passed:["Amethyst"],
+    pts:0
+  }
+};
 
-levels.forEach(l=>{
-  if(!players[l.author]) players[l.author]={beaten:[],verified:[],pts:0};
-  if(!players[l.verifier]) players[l.verifier]={beaten:[],verified:[],pts:0};
-  players[l.author].beaten.push(l);
-  players[l.verifier].verified.push(l);
-});
-
+// ====== РАХУНОК ОЧОК ======
 Object.keys(players).forEach(p=>{
-  // очки за проходження
-  players[p].beaten.forEach(l=>{
-    players[p].pts += pointsForRank(l.rank);
+  // проходження чужих рівнів
+  players[p].passed.forEach(lname=>{
+    const lvl = levels.find(l=>l.name===lname);
+    if(lvl && lvl.author !== p){
+      players[p].pts += pointsForRank(lvl.rank);
+    }
   });
-
   // очки за верифікацію (x2)
-  players[p].verified.forEach(l=>{
-    players[p].pts += pointsForRank(l.rank) * 2;
+  players[p].verified.forEach(lname=>{
+    const lvl = levels.find(l=>l.name===lname);
+    if(lvl){
+      players[p].pts += pointsForRank(lvl.rank)*2;
+    }
   });
 });
 
@@ -109,15 +136,16 @@ Object.keys(players).forEach(p=>{
 const playersDiv=document.getElementById("players");
 
 Object.entries(players)
-  .sort((a,b)=>b[1].pts-a[1].pts)
+  .sort((a,b)=>b[1].pts - a[1].pts)
   .forEach(([name,data],i)=>{
     const d=document.createElement("div");
     d.className="player";
     d.innerHTML=`<b>#${i+1} ${name}</b> — ${data.pts} pts`;
     d.onclick=()=>openModal(`
       <h3>${name}</h3>
-      🏆 Пройшов: ${data.beaten.map(l=>l.name).join(", ")||"—"}<br>
-      ✅ Verifнув: ${data.verified.map(l=>l.name).join(", ")||"—"}
+      🏗 Зробив: ${data.created.join(", ")||"—"}<br>
+      ✅ Verifнув: ${data.verified.join(", ")||"—"}<br>
+      🏆 Пройшов: ${data.passed.join(", ")||"—"}
     `);
     playersDiv.appendChild(d);
   });
