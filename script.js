@@ -47,6 +47,17 @@ const levels = [
 ];
 
 let currentFilter="all";
+function setFilter(type){
+  currentFilter = type;
+
+  document.querySelectorAll(".filters button")
+    .forEach(b => b.classList.remove("active"));
+
+  document.getElementById("btn-"+type).classList.add("active");
+
+  renderLevels();
+}
+
 
 // ====== ГРАВЦІ (вручну) ======
 const players = {
