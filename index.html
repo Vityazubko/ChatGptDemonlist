@@ -1,85 +1,43 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <title>ChatGPT Demonlist</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>ChatGPT Demonlist v1.7</title>
+<style>
+body{font-family:Arial;background:#0b0b10;color:white;margin:0;padding:20px}
+h1{margin-bottom:10px}
+.tabs button{margin:5px;padding:10px 15px;background:#222;color:white;border:none;cursor:pointer}
+.tabs button.active{background:#444}
+.card{background:#161622;margin:8px 0;padding:10px;border-radius:8px;cursor:pointer;display:flex;align-items:center}
+.card img{width:50px;height:50px;border-radius:8px;margin-right:10px}
+.card:hover{background:#1e1e30}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);justify-content:center;align-items:center}
+.modal-box{background:#111;padding:20px;max-width:500px;width:90%;border-radius:10px;position:relative}
+.close{position:absolute;top:5px;right:8px;background:none;color:white;border:none;font-size:18px;cursor:pointer}
+.badge{display:inline-block;background:#444;color:#fff;padding:2px 6px;margin:0 2px;border-radius:4px;font-size:12px}
+.tag-list .tag{display:inline-block;background:#333;color:#fff;padding:2px 6px;margin:2px;border-radius:4px;font-size:12px}
+</style>
 </head>
 <body>
 
-<header>
-  <h1>🔥 ChatGPT Demonlist</h1>
-  <p id="version">Версія 1.5.3 • 2026</p>
-</header>
+<h1>ChatGPT Demonlist <span id="version">v1.7</span></h1>
 
-<nav>
-  <button onclick="showSection('levels')">🔥 Рівні</button>
-  <button onclick="showSection('players')">👑 Гравці</button>
-  <button onclick="showSection('updates')">🕒 Історія оновлень</button>
-</nav>
-
-<div class="filters">
-  <button onclick="setFilter('all')" id="btn-all">Усі</button>
-  <button onclick="setFilter('pointer')" id="btn-pointer">Pointercrate</button>
-  <button onclick="setFilter('fan')" id="btn-fan">Вигадані</button>
+<div class="tabs">
+  <button onclick="setView('levels')" id="btnLevels" class="active">Рівні</button>
+  <button onclick="setView('players')" id="btnPlayers">Гравці</button>
+  <button onclick="toggleType()">Pointer / Fan / All</button>
+  <button onclick="showUpdates()">Історія оновлень</button>
 </div>
 
+<div id="levelsView"></div>
+<div id="playersView" style="display:none"></div>
+<div id="updatesView" style="display:none"></div>
 
-<!-- РІВНІ -->
-<section id="levelsSection">
-  <div id="levels"></div>
-</section>
-
-<!-- ГРАВЦІ -->
-<section id="playersSection" class="hidden">
-  <div id="players"></div>
-</section>
-
-<!-- ОНОВЛЕННЯ -->
-<section id="updatesSection" class="hidden">
-   <div class="update">
-    <h3>1.5.3</h3>
-    <ul>
-      <li>2 нових рівні andromeda та CXT MOLODETS</li>
-      <li>2 нових гравців у лідерборді</li>
-    </ul>
-  </div>
-   <div class="update">
-    <h3>1.5.2</h3>
-    <ul>
-      <li>Новий дизайн для модалки рівня та гравця</li>
-      <li>2 нових гравців у лідерборді</li>
-    </ul>
-  </div>
-   <div class="update">
-    <h3>1.5</h3>
-    <ul>
-      <li>Пофіксили лідерборд</li>
-      <li>3 нові вигадані рівні</li>
-    </ul>
-  </div>
-  <div class="update">
-    <h3>1.4</h3>
-    <ul>
-      <li>Новий дизайн</li>
-      <li>Очки за проходження і верифікацію</li>
-      <li>Фільтр PointerCreate / Fan</li>
-      <li>Повернуті всі рівні</li>
-    </ul>
-  </div>
-  <div class="update">
-    <h3>1.3</h3>
-    <ul>
-      <li>Топ гравців</li>
-      <li>Очки за рівні</li>
-    </ul>
-  </div>
-</section>
-
-<!-- МОДАЛКА -->
-<div id="modal" class="modal" onclick="closeModal()">
-  <div class="modal-content" onclick="event.stopPropagation()">
-    <div id="modalBody"></div>
+<!-- MODAL -->
+<div id="modal" class="modal">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal()">✖</button>
+    <div id="modalContent"></div>
   </div>
 </div>
 
