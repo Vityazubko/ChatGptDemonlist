@@ -1,186 +1,158 @@
-* { box-sizing:border-box; }
+/* ================= CSS v1.5.3 ================= */
 
+/* ====== Загальні стилі ====== */
 body {
-  margin:0;
-  background:#0b0b12;
-  color:#fff;
-  font-family:Segoe UI, Arial;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
 }
 
-header {
-  text-align:center;
-  padding:20px;
-  background:linear-gradient(90deg,#ff0033,#7a00ff);
+h1,h2,h3,h4,h5,h6 {
+    margin: 0;
 }
 
-nav {
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  padding:10px;
-  background:#111;
+/* ====== Контейнер сайту ====== */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
 }
 
+/* ====== Кнопки та фільтри ====== */
 button {
-  background:#1c1c28;
-  color:white;
-  border:none;
-  padding:10px 15px;
-  border-radius:8px;
-  cursor:pointer;
-}
-button:hover { background:#2c2c3a; }
-
-.filters{
-  display:flex;
-  gap:10px;
-  margin-bottom:15px;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    border: 1px solid #333;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 2px;
+    transition: all 0.2s;
 }
 
-.filters button{
-  flex:1;
-  padding:10px;
-  border:none;
-  border-radius:10px;
-  background:#2b2b44;
-  color:#fff;
-  font-weight:600;
-  cursor:pointer;
-  transition:.2s;
+button:hover {
+    background-color: #333;
 }
 
-.filters button:hover{
-  background:#3b3b5e;
+button.active {
+    background-color: #ff9800;
+    color: #121212;
 }
 
-.filters button.active{
-  background:#6a5cff;
+/* ====== Секції ====== */
+#levelsView, #playersView {
+    display: none;
+    margin-top: 15px;
 }
 
-
-section {
-  max-width:900px;
-  margin:auto;
-  padding:10px;
+/* ====== Рівні ====== */
+.level {
+    display: flex;
+    align-items: center;
+    background-color: #1a1a1a;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
-.level, .player {
-  display:flex;
-  align-items:center;
-  background:#151522;
-  margin:8px 0;
-  padding:10px;
-  border-radius:12px;
-  cursor:pointer;
+.level:hover {
+    background-color: #2a2a2a;
 }
 
-.level:hover, .player:hover {
-  background:#202035;
+.level img.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+    margin-right: 15px;
+    object-fit: cover;
 }
 
-.avatar {
-  width:80px;
-  height:80px;
-  background:#333;
-  border-radius:12px;
-  margin-right:15px;
-  object-fit:cover;
+/* ====== Гравці ====== */
+.player {
+    background-color: #1a1a1a;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
-.hidden { display:none; }
+.player:hover {
+    background-color: #2a2a2a;
+}
 
-/* Модалка */
-.modal {
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.8);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:1000;
-  cursor:pointer; /* додати */
+/* ====== Модалка ====== */
+#modal {
+    display: none;
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.75);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
 .modal-content {
-  background:#1e1e30;
-  padding:25px;
-  border-radius:15px;
-  max-width:500px;
-  width:90%;
-  color:#fff;
-  box-shadow:0 0 20px rgba(255,255,255,.2);
-  cursor:default; /* щоб не закривалося при кліку на контент */
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80%;
+    overflow-y: auto;
+    color: #e0e0e0;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
 }
 
-
-.modal-content h3 {
-  margin-top:0;
-  font-size:1.8em;
-  text-align:center;
-  color:#ff6a00;
+.modal-content img.avatar-large {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: block;
 }
 
-.modal-content .avatar-large {
-  display:block;
-  margin:auto;
-  width:120px;
-  height:120px;
-  border-radius:15px;
-  object-fit:cover;
-  margin-bottom:15px;
-  border:3px solid #ff6a00;
+/* ====== Інформаційні блоки ====== */
+.info-block {
+    margin-bottom: 10px;
 }
 
-.modal-content .info-block {
-  margin:10px 0;
-  padding:10px;
-  background:#2a2a40;
-  border-radius:12px;
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 5px;
 }
 
-.modal-content .info-block b {
-  display:inline-block;
-  width:120px;
-  color:#ffa500;
+.tag {
+    background-color: #333;
+    color: #fff;
+    padding: 2px 6px;
+    margin: 2px;
+    border-radius: 4px;
+    font-size: 12px;
 }
 
-.modal-content .info-block span {
-  color:#a0a0ff;
+/* ====== Бейджі ====== */
+.badge {
+    background-color: #ff9800;
+    color: #121212;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-left: 5px;
 }
 
-.modal-content .tag-list {
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-top:5px;
+/* ====== Версія ====== */
+#version {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 10px;
 }
-
-.modal-content .tag {
-  background:#333366;
-  padding:5px 10px;
-  border-radius:8px;
-  font-size:0.9em;
-  color:#fff;
-}
-
-.badges{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-top:6px;
-}
-
-.badge{
-  padding:3px 8px;
-  border-radius:8px;
-  font-size:12px;
-  font-weight:600;
-  background:#3b3b5e;
-  color:#fff;
-}
-
-.badge.pointer{ background:#3a6cff; }
-.badge.fan{ background:#8e44ff; }
-.badge.top1{ background:#ffd700; color:#000; }
-.badge.verified{ background:#2ecc71; }
-.badge.popular{ background:#e67e22; }
