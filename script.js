@@ -77,7 +77,7 @@ const players = {
   },
   "Xeuweu": {
     created:["Xeuweu","VOID ASCENSION","Void Spiral"],
-    verified:["Xeuweu","Neural Collapse"],
+    verified:["Xeuweu","NEURAL COLLAPSE"],
     passed:["Amethyst","Oblivion","VOID ASCENSION"],
     pts:0
   },
@@ -89,7 +89,7 @@ const players = {
   },
   "Lonid": {
     created:["Neon Horizon"],
-    verified:["Neon Horizon","SILENT HORIZON X","Silest World","Silent World","Silest World"],
+    verified:["Neon Horizon","SILENT HORIZON X","Silent World","Silest World"],
     passed:["Amethyst"],
     pts:0
       },
@@ -128,8 +128,7 @@ const players = {
     verified:["Oblivion"],
     passed:["Tidal Wave","Amethyst","Slaughterhouse"],
     pts:0
-  }
-                  },
+  },
   "ItsHybrid": {
     created:[],
     verified:["Flamewall"],
