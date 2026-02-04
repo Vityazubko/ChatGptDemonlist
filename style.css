@@ -162,3 +162,25 @@ section {
   font-size:0.9em;
   color:#fff;
 }
+
+.badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:6px;
+}
+
+.badge{
+  padding:3px 8px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:600;
+  background:#3b3b5e;
+  color:#fff;
+}
+
+.badge.pointer{ background:#3a6cff; }
+.badge.fan{ background:#8e44ff; }
+.badge.top1{ background:#ffd700; color:#000; }
+.badge.verified{ background:#2ecc71; }
+.badge.popular{ background:#e67e22; }
