@@ -27,25 +27,30 @@ const levels = [
   {rank:4,name:"Slaughterhouse Rebirth",author:"icedcave",verifier:"Zoink",type:"fan",time:"2:20",avatar:""},
   {rank:5,name:"CXT MOLODETS",author:"MeowCatMurcyk",verifier:"Vityapro12",type:"fan",time:"1:20",avatar:""},
   {rank:6,name:"Kioker Per Ker",author:"Kioker",verifier:"GGsBoy",type:"fan",time:"0:55",avatar:""},
-  {rank:7,name:"Acheron",author:"Ryamu",verifier:"OniLink",type:"pointer",time:"1:55",avatar:""},
-  {rank:8,name:"Avernus",author:"Bo",verifier:"Zoink",type:"pointer",time:"2:15",avatar:""},
-  {rank:9,name:"andromeda",author:"Inxsane",verifier:"bkold",type:"pointer",time:"1:31",avatar:"avatars/andromeda_gd.jpg"},
-  {rank:10,name:"Amethyst",author:"Endevvor",verifier:"GGsBoy",type:"pointer",time:"1:42",avatar:""},
-  {rank:11,name:"Silest World",author:"Silest",verifier:"Lonid",type:"fan",time:"2:05",avatar:""},
-  {rank:12,name:"Flamewall",author:"Bianox",verifier:"ItsHybrid",type:"pointer",time:"1:50",avatar:""},
-  {rank:13,name:"Slaughterhouse",author:"icedcave",verifier:"Zoink",type:"pointer",time:"2:30",avatar:""},
-  {rank:14,name:"Oblivion",author:"Riot",verifier:"Trick",type:"pointer",time:"2:45",avatar:""},
-  {rank:15,name:"Liptogen",author:"MasterCreaster",verifier:"Hopii",type:"fan",time:"2:05",avatar:""},
-  {rank:16,name:"Thinking Space II",author:"Atomic",verifier:"Knobbelboy",type:"pointer",time:"2:40",avatar:""},
-  {rank:17,name:"VOID ASCENSION",author:"Xeuweu",verifier:"GGsBoy",type:"fan",time:"2:10",avatar:""},
-  {rank:18,name:"Cat Molodets",author:"MeowCatMurcyk",verifier:"Vityapro12",type:"fan",time:"1:20",avatar:""},
-  {rank:19,name:"Void Spiral",author:"Xeuweu",verifier:"Vityapro12",type:"fan",time:"2:00",avatar:""},
-  {rank:20,name:"NEURAL COLLAPSE",author:"GGsBoy",verifier:"Xeuweu",type:"fan",time:"2:30",avatar:""},
-  {rank:21,name:"Spectral Core",author:"Xapped",verifier:"Vityapro12",type:"fan",time:"2:15",avatar:""},
-  {rank:22,name:"SILENT HORIZON X",author:"MythDev",verifier:"Lonid",type:"fan",time:"2:50",avatar:""},
-  {rank:23,name:"Neon Horizon",author:"Lonid",verifier:"Lonid",type:"fan",time:"1:55",avatar:""},
-  {rank:24,name:"Black Sun Zenith",author:"Rob",verifier:"Rob",type:"fan",time:"3:00",avatar:""},
-  {rank:25,name:"Silent World",author:"Silest",verifier:"Lonid",type:"fan",time:"2:30",avatar:""}
+  {rank:7,name:"Boobawamba",author:"Akunashark",verifier:"Fled",type:"pointer",time:"2:34",avatar:""},
+  {rank:8,name:"Acheron",author:"Ryamu",verifier:"OniLink",type:"pointer",time:"1:55",avatar:""},
+  {rank:9,name:"Avernus",author:"Bo",verifier:"Zoink",type:"pointer",time:"2:15",avatar:""},
+  {rank:10,name:"andromeda",author:"Inxsane",verifier:"bkold",type:"pointer",time:"1:31",avatar:"avatars/andromeda_gd.jpg"},
+  {rank:11,name:"Amethyst",author:"Endevvor",verifier:"GGsBoy",type:"pointer",time:"1:42",avatar:""},
+  {rank:12,name:"Silest World",author:"Silest",verifier:"Lonid",type:"fan",time:"2:05",avatar:""},
+  {rank:13,name:"Flamewall",author:"Bianox",verifier:"ItsHybrid",type:"pointer",time:"1:50",avatar:""},
+  {rank:14,name:"Slaughterhouse",author:"icedcave",verifier:"Zoink",type:"pointer",time:"2:30",avatar:""},
+  {rank:15,name:"Nullscape",author:"ItzKiba",verifier:"Zoink",type:"pointer",time:"1:34",avatar:""},
+  {rank:16,name:"Oblivion",author:"Riot",verifier:"Trick",type:"pointer",time:"2:45",avatar:""},
+  {rank:17,name:"Anathema",author:"MisterCreaster",verifier:"WhizKid",type:"pointer",time:"2:38",avatar:""},
+  {rank:18,name:"Liptogen",author:"MasterCreaster",verifier:"Hopii",type:"fan",time:"2:05",avatar:""},
+  {rank:19,name:"Thinking Space II",author:"Atomic",verifier:"Knobbelboy",type:"pointer",time:"2:40",avatar:""},
+  {rank:20,name:"INCREMENT",author:"iceteam",verifier:"Vityapro12",type:"fan",time:"2:30",avatar:""},
+  {rank:21,name:"VOID ASCENSION",author:"Xeuweu",verifier:"GGsBoy",type:"fan",time:"2:10",avatar:""},
+  {rank:22,name:"Cat Molodets",author:"MeowCatMurcyk",verifier:"Vityapro12",type:"fan",time:"1:20",avatar:""},
+  {rank:23,name:"Qwilt",author:"iceteam",verifier:"Knobbelboy",type:"fan",time:"1:20",avatar:""},
+  {rank:24,name:"Void Spiral",author:"Xeuweu",verifier:"Vityapro12",type:"fan",time:"2:00",avatar:""},
+  {rank:25,name:"NEURAL COLLAPSE",author:"GGsBoy",verifier:"Xeuweu",type:"fan",time:"2:30",avatar:""},
+  {rank:26,name:"Spectral Core",author:"Xapped",verifier:"Vityapro12",type:"fan",time:"2:15",avatar:""},
+  {rank:27,name:"SILENT HORIZON X",author:"MythDev",verifier:"Lonid",type:"fan",time:"2:50",avatar:""},
+  {rank:28,name:"Neon Horizon",author:"Lonid",verifier:"Lonid",type:"fan",time:"1:55",avatar:""},
+  {rank:29,name:"Black Sun Zenith",author:"Rob",verifier:"Rob",type:"fan",time:"3:00",avatar:""},
+  {rank:30,name:"Silent World",author:"Silest",verifier:"Lonid",type:"fan",time:"2:30",avatar:""}
 ];
 
 let currentFilter="all";
@@ -65,38 +70,38 @@ function setFilter(type){
 const players = {
     "Vityapro12": {
     created:["Cat Molodets"],
-    verified:["Void Spiral","Cat Molodets","Spectral Core","CXT MOLODETS"],
-    passed:["Amethyst","Flamewall","Slaughterhouse","Oblivion","Slaughterhouse Rebirth","Silent World","Kioker Per Ker"], // пройшли чужі рівні
+    verified:["Void Spiral","Cat Molodets","Spectral Core","CXT MOLODETS","INCREMENT"],
+    passed:["Amethyst","Flamewall","Slaughterhouse","Oblivion","Slaughterhouse Rebirth","Silent World","Kioker Per Ker","Neon Horizon"], // пройшли чужі рівні
     pts:0
   },
   "GGsBoy": {
     created:["NEURAL COLLAPSE"],
     verified:["Amethyst","VOID ASCENSION","Kioker Per Ker"],
-    passed:["Spectral Core","Xeuweu","Tidal Wave"],
+    passed:["Spectral Core","Xeuweu","Tidal Wave","Kioker Per Ker","Query"],
     pts:0
   },
   "Xeuweu": {
     created:["Xeuweu","VOID ASCENSION","Void Spiral"],
     verified:["Xeuweu","NEURAL COLLAPSE"],
-    passed:["Amethyst","Oblivion","VOID ASCENSION"],
+    passed:["Amethyst","Oblivion","VOID ASCENSION","Nullscape"],
     pts:0
   },
   "MeowCatMurcyk": {
-    created:["Cat Molodets"],
+    created:["Cat Molodets","CXT MOLODETS"],
     verified:[],
-    passed:["Flamewall","NEURAL COLLAPSE","Cat Molodets"],
+    passed:["Flamewall","NEURAL COLLAPSE","Cat Molodets","CXT MOLODETS"],
     pts:0
   },
   "Lonid": {
     created:["Neon Horizon"],
     verified:["Neon Horizon","SILENT HORIZON X","Silent World","Silest World"],
-    passed:["Amethyst"],
+    passed:["Amethyst","Flamewall"],
     pts:0
       },
   "Zoink": {
     created:[],
-    verified:["Slaughterhouse Rebirth","Avernus","Slaughterhouse"],
-    passed:["Amethyst","Flamewall","Thinking Space II","Acheron","Cat Molodets","Silent World"],
+    verified:["Slaughterhouse Rebirth","Avernus","Slaughterhouse","Nullscape"],
+    passed:["Amethyst","Flamewall","Thinking Space II","Acheron","Cat Molodets","Silent World","CXT MOLODETS","Kioker Per Ker"],
     pts:0
        },
   "Ryamu": {
@@ -133,6 +138,24 @@ const players = {
     created:[],
     verified:["Flamewall"],
     passed:["Tidal Wave","Spectral Core"],
+    pts:0
+      },
+  "Knobbelboy": {
+    created:[],
+    verified:["Thinking Space II","Qwilt"],
+    passed:["Silent World"],
+    pts:0
+        },
+  "Fled": {
+    created:[],
+    verified:["Boobawamba"],
+    passed:[],
+    pts:0
+       },
+  "WhizKid": {
+    created:[],
+    verified:["Anathema"],
+    passed:["Thinking Space II","Amethyst","Black Sun Zenith"],
     pts:0
   }
 };
