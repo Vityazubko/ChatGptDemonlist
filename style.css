@@ -31,10 +31,32 @@ button {
 }
 button:hover { background:#2c2c3a; }
 
-.filters {
-  text-align:center;
-  margin:15px;
+.filters{
+  display:flex;
+  gap:10px;
+  margin-bottom:15px;
 }
+
+.filters button{
+  flex:1;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#2b2b44;
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.filters button:hover{
+  background:#3b3b5e;
+}
+
+.filters button.active{
+  background:#6a5cff;
+}
+
 
 section {
   max-width:900px;
