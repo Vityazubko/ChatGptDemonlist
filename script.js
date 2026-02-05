@@ -1,12 +1,12 @@
-// ================== СЕКЦІЇ ==================
+// ====== СЕКЦІЇ ======
 function showSection(name){
   ["levels","players","updates"].forEach(s=>{
-    document.getElementById(s+"Section")?.classList.add("hidden");
+    document.getElementById(s+"Section").classList.add("hidden");
   });
-  document.getElementById(name+"Section")?.classList.remove("hidden");
+  document.getElementById(name+"Section").classList.remove("hidden");
 }
 
-// ================== ОЧКИ ==================
+// ====== ОЧКИ ======
 function pointsForRank(rank){
   if(rank===1) return 350;
   if(rank===2) return 325;
@@ -19,7 +19,33 @@ function pointsForRank(rank){
   return Math.max(50,245-(rank-8)*5);
 }
 
-// ================== РІВНІ ==================
+function recalcPoints(){
+  // обнулення
+  Object.values(players).forEach(p => p.pts = 0);
+
+  levels.forEach(level=>{
+    const base = pointsForRank(level.rank);
+
+    // за проходження
+    Object.entries(players).forEach(([name,player])=>{
+      if(player.passed.includes(level.name)){
+        if(level.verifier !== name){
+          player.pts += base;
+        }
+      }
+    });
+
+    // за верифікацію (x2)
+    Object.entries(players).forEach(([name,player])=>{
+      if(player.verified.includes(level.name)){
+        player.pts += base * 2;
+      }
+    });
+  });
+}
+
+
+// ====== РІВНІ ======
 const levels = [
   {rank:1,name:"Xeuweu",author:"Xeuweu",verifier:"Xeuweu",type:"fan",time:"2:05",avatar:""},
   {rank:2,name:"Tidal Wave",author:"OniLink",verifier:"Ryamu",type:"pointer",time:"2:10",avatar:"avatars/TidalWave.jpg"},
@@ -53,18 +79,18 @@ const levels = [
   {rank:30,name:"Silent World",author:"Silest",verifier:"Lonid",type:"fan",time:"2:30",avatar:""}
 ];
 
-// ================== ФІЛЬТР ==================
 let currentFilter="all";
-
 function setFilter(type){
   currentFilter = type;
 
   document.querySelectorAll(".filters button")
     .forEach(b => b.classList.remove("active"));
 
-  document.getElementById("btn-"+type)?.classList.add("active");
+  document.getElementById("btn-"+type).classList.add("active");
+
   renderLevels();
 }
+
 
 // ====== ГРАВЦІ (вручну) ======
 const players = {
@@ -160,62 +186,164 @@ const players = {
   }
 };
 
-
-// ================== ОЧКИ ==================
-Object.values(players).forEach(p=>p.pts=0);
-
-Object.entries(players).forEach(([p,data])=>{
-  [...new Set(data.passed)].forEach(lname=>{
+// ====== РАХУНОК ОЧОК ======
+Object.keys(players).forEach(p=>{
+  // проходження чужих рівнів
+  players[p].passed.forEach(lname=>{
     const lvl = levels.find(l=>l.name===lname);
-    if(lvl && lvl.author!==p){
-      data.pts += pointsForRank(lvl.rank);
+    if(lvl && lvl.author !== p){
+      players[p].pts += pointsForRank(lvl.rank);
     }
   });
-  [...new Set(data.verified)].forEach(lname=>{
+  // очки за верифікацію (x2)
+  players[p].verified.forEach(lname=>{
     const lvl = levels.find(l=>l.name===lname);
     if(lvl){
-      data.pts += pointsForRank(lvl.rank)*2;
+      players[p].pts += pointsForRank(lvl.rank)*2;
     }
   });
 });
 
-// ================== РЕНДЕР ==================
+// ====== РЕНДЕР РІВНІВ ======
 const levelsDiv=document.getElementById("levels");
-const playersDiv=document.getElementById("players");
 
 function renderLevels(){
-  if(!levelsDiv) return;
-  levelsDiv.innerHTML="";
-  levels
-    .filter(l=>currentFilter==="all"||l.type===currentFilter)
-    .sort((a,b)=>a.rank-b.rank)
-    .forEach(l=>{
-      const d=document.createElement("div");
-      d.className="level";
-      d.innerHTML=`
-        <img class="avatar" src="${l.avatar||''}">
-        <div><b>#${l.rank} ${l.name}</b><br>Автор: ${l.author} • Verifier: ${l.verifier}</div>
-      `;
-      d.onclick=()=>showLevelModal(l);
-      levelsDiv.appendChild(d);
-    });
+  const list = document.getElementById("levels");
+  list.innerHTML = "";
+
+  levels.forEach(l=>{
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `
+      <b>#${l.rank} ${l.name}</b><br>
+      Автор: ${l.author}<br>
+      Verifier: ${l.verifier}<br>
+      Тип: ${l.type}<br>
+      Час: ${l.time}
+    `;
+    div.onclick = ()=>showLevelModal(l);
+    list.appendChild(div);
+  });
 }
 
+
+// ====== РЕНДЕР ГРАВЦІВ ======
+const playersDiv=document.getElementById("players");
 function renderPlayers(){
-  if(!playersDiv) return;
-  playersDiv.innerHTML="";
+  const list = document.getElementById("players");
+  list.innerHTML = "";
+
   Object.entries(players)
-    .sort((a,b)=>b[1].pts-a[1].pts)
-    .forEach(([n,d],i)=>{
-      const el=document.createElement("div");
-      el.className="player";
-      el.innerHTML=`<b>#${i+1} ${n}</b> — ${d.pts} pts`;
-      el.onclick=()=>showPlayerModal(n);
-      playersDiv.appendChild(el);
+    .sort((a,b)=>b[1].pts - a[1].pts)
+    .forEach(([name,p],i)=>{
+      const div = document.createElement("div");
+      div.className = "card";
+      div.innerHTML = `
+        <b>#${i+1} ${name}</b><br>
+        Очки: ${p.pts}
+      `;
+      div.onclick = ()=>showPlayerModal(name);
+      list.appendChild(div);
     });
 }
 
-// ================== INIT ==================
+
+// ====== МОДАЛКИ ======
+const modal = document.getElementById("modal");
+const modalContent = document.querySelector(".modal-content");
+
+function openModal(html){
+  modal.style.display="flex";
+  document.getElementById("modalBody").innerHTML=html;
+}
+
+modal.addEventListener("click", ()=>{ modal.style.display="none"; });
+modalContent.addEventListener("click", e => e.stopPropagation());
+
+function showLevelModal(level){
+  const passedBy = Object.entries(players)
+    .filter(([_,p])=>p.passed.includes(level.name))
+    .map(([n])=>n);
+
+  openModal(`
+    <h3>#${level.rank} ${level.name}</h3>
+    <p><b>Автор:</b> ${level.author}</p>
+    <p><b>Verifier:</b> ${level.verifier}</p>
+    <p><b>Тип:</b> ${level.type}</p>
+    <p><b>Час:</b> ${level.time}</p>
+    <p><b>Очки:</b> ${pointsForRank(level.rank)}</p>
+
+    <hr>
+    <b>Пройшли:</b><br>
+    ${passedBy.length ? passedBy.join(", ") : "Ніхто"}
+  `);
+}
+
+function showPlayerModal(playerName){
+  const data = players[playerName];
+  const html = `
+    <h3>${playerName}</h3>
+    <div class="info-block">
+      <b>Зробив:</b>
+      <div class="tag-list">${data.created.map(l=>`<div class="tag">${l}</div>`).join("")}</div>
+    </div>
+    <div class="info-block">
+      <b>Verifнув:</b>
+      <div class="tag-list">${data.verified.map(l=>`<div class="tag">${l}</div>`).join("")}</div>
+    </div>
+    <div class="info-block">
+      <b>Пройшов:</b>
+      <div class="tag-list">${data.passed.map(l=>`<div class="tag">${l}</div>`).join("")}</div>
+    </div>
+    <div class="info-block">
+      <b>Загальні очки:</b> <span>${data.pts}</span>
+    </div>
+  `;
+  openModal(html);
+}
+
+function showPlayerModal(name){
+  const p = players[name];
+
+  const hardest = p.passed
+    .map(l=>levels.find(x=>x.name===l))
+    .filter(Boolean)
+    .sort((a,b)=>a.rank-b.rank)[0];
+
+  openModal(`
+    <h3>${name}</h3>
+
+    <p><b>Очки:</b> ${p.pts}</p>
+
+    <p><b>Найважчий пройдений:</b><br>
+      ${hardest ? `#${hardest.rank} ${hardest.name}` : "Немає"}
+    </p>
+
+    <hr>
+    <b>Створив:</b><br>${p.created.join(", ") || "—"}<br><br>
+    <b>Verifнув:</b><br>${p.verified.join(", ") || "—"}<br><br>
+    <b>Пройшов:</b><br>${p.passed.join(", ") || "—"}
+  `);
+}
+
+function openModal(html){
+  const m = document.getElementById("modal");
+  m.style.display = "flex";
+  document.getElementById("modal-content").innerHTML = html;
+}
+
+document.getElementById("modal").onclick = e=>{
+  if(e.target.id === "modal"){
+    e.target.style.display = "none";
+  }
+};
+
+
+// ====== ІНІЦІАЛІЗАЦІЯ ======
+renderLevels();
+renderPlayers();
+
+recalcPoints();
 renderLevels();
 renderPlayers();
 
