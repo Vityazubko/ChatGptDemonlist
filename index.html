@@ -1,46 +1,95 @@
+
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-<meta charset="UTF-8">
-<title>ChatGPT Demonlist v1.7</title>
-<style>
-body{font-family:Arial;background:#0b0b10;color:white;margin:0;padding:20px}
-h1{margin-bottom:10px}
-.tabs button{margin:5px;padding:10px 15px;background:#222;color:white;border:none;cursor:pointer}
-.tabs button.active{background:#444}
-.card{background:#161622;margin:8px 0;padding:10px;border-radius:8px;cursor:pointer;display:flex;align-items:center}
-.card img{width:50px;height:50px;border-radius:8px;margin-right:10px}
-.card:hover{background:#1e1e30}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);justify-content:center;align-items:center}
-.modal-box{background:#111;padding:20px;max-width:500px;width:90%;border-radius:10px;position:relative}
-.close{position:absolute;top:5px;right:8px;background:none;color:white;border:none;font-size:18px;cursor:pointer}
-.badge{display:inline-block;background:#444;color:#fff;padding:2px 6px;margin:0 2px;border-radius:4px;font-size:12px}
-.tag-list .tag{display:inline-block;background:#333;color:#fff;padding:2px 6px;margin:2px;border-radius:4px;font-size:12px}
-</style>
+  <meta charset="UTF-8">
+  <title>ChatGPT Demonlist v1.5.3</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>ChatGPT Demonlist <span id="version">v1.7</span></h1>
+<header class="topbar">
+  <div class="logo">ChatGPT Demonlist</div>
+  <div class="version">Version 1.5.3</div>
+</header>
 
-<div class="tabs">
-  <button onclick="setView('levels')" id="btnLevels" class="active">Рівні</button>
-  <button onclick="setView('players')" id="btnPlayers">Гравці</button>
-  <button onclick="toggleType()">Pointer / Fan / All</button>
-  <button onclick="showUpdates()">Історія оновлень</button>
-</div>
+<nav class="navbar">
+  <button class="nav-btn active">Рівні</button>
+  <button class="nav-btn">Гравці</button>
+  <button class="nav-btn">Історія оновлень</button>
+</nav>
 
-<div id="levelsView"></div>
-<div id="playersView" style="display:none"></div>
-<div id="updatesView" style="display:none"></div>
+<main class="container">
 
-<!-- MODAL -->
-<div id="modal" class="modal">
-  <div class="modal-box">
-    <button class="close" onclick="closeModal()">✖</button>
-    <div id="modalContent"></div>
-  </div>
-</div>
+  <!-- СПИСОК РІВНІВ -->
+  <section class="panel">
+    <h2>Топ рівнів</h2>
 
-<script src="script.js"></script>
+    <div class="level-list">
+
+      <div class="level-card">
+        <div class="rank">#1</div>
+        <div class="avatar-placeholder">AVATAR</div>
+        <div class="info">
+          <div class="name">Xeuweu</div>
+          <div class="meta">Автор: Xeuweu • Verifier: Xeuweu</div>
+        </div>
+      </div>
+
+      <div class="level-card">
+        <div class="rank">#2</div>
+        <div class="avatar-placeholder">AVATAR</div>
+        <div class="info">
+          <div class="name">Tidal Wave</div>
+          <div class="meta">Автор: OniLink • Verifier: Ryamu</div>
+        </div>
+      </div>
+
+      <!-- інші рівні -->
+      <div class="level-card ghost">
+        <div class="rank">#...</div>
+        <div class="avatar-placeholder">AVATAR</div>
+        <div class="info">
+          <div class="name">Інші рівні тут</div>
+          <div class="meta">дані додаються JS</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- СПИСОК ГРАВЦІВ -->
+  <section class="panel">
+    <h2>Топ гравців</h2>
+
+    <div class="player-list">
+
+      <div class="player-card">
+        <div class="player-rank">#1</div>
+        <div class="player-name">Vityapro12</div>
+        <div class="player-points">350 pts</div>
+      </div>
+
+      <div class="player-card">
+        <div class="player-rank">#2</div>
+        <div class="player-name">GGsBoy</div>
+        <div class="player-points">325 pts</div>
+      </div>
+
+      <div class="player-card ghost">
+        <div class="player-rank">#...</div>
+        <div class="player-name">Інші гравці</div>
+        <div class="player-points">JS</div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  ChatGPT Demonlist • Classic Style • v1.5.3
+</footer>
+
 </body>
 </html>
