@@ -1,158 +1,156 @@
-/* ================= CSS v1.5.3 ================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
-/* ====== Загальні стилі ====== */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #121212;
-    color: #e0e0e0;
-    margin: 0;
-    padding: 0;
+  background: #0e0e11;
+  color: #eaeaf0;
 }
 
-h1,h2,h3,h4,h5,h6 {
-    margin: 0;
+/* HEADER */
+.topbar {
+  background: #15151b;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid #2a2a35;
 }
 
-/* ====== Контейнер сайту ====== */
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.version {
+  color: #9a9aaa;
+}
+
+/* NAV */
+.navbar {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  background: #121217;
+  border-bottom: 1px solid #2a2a35;
+}
+
+.nav-btn {
+  background: #1d1d26;
+  color: #ccc;
+  border: none;
+  padding: 8px 14px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.nav-btn.active {
+  background: #3b3bff;
+  color: #fff;
+}
+
+/* MAIN */
 .container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 20px auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
 }
 
-/* ====== Кнопки та фільтри ====== */
-button {
-    background-color: #1e1e1e;
-    color: #e0e0e0;
-    border: 1px solid #333;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 4px;
-    margin: 2px;
-    transition: all 0.2s;
+.panel {
+  background: #14141c;
+  padding: 16px;
+  border-radius: 10px;
+  border: 1px solid #2a2a35;
 }
 
-button:hover {
-    background-color: #333;
+.panel h2 {
+  margin-bottom: 14px;
 }
 
-button.active {
-    background-color: #ff9800;
-    color: #121212;
+/* LEVELS */
+.level-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-/* ====== Секції ====== */
-#levelsView, #playersView {
-    display: none;
-    margin-top: 15px;
+.level-card {
+  display: flex;
+  align-items: center;
+  background: #1a1a24;
+  border-radius: 8px;
+  padding: 10px;
+  border: 1px solid #2a2a35;
 }
 
-/* ====== Рівні ====== */
-.level {
-    display: flex;
-    align-items: center;
-    background-color: #1a1a1a;
-    padding: 10px;
-    margin-bottom: 5px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s;
+.rank {
+  width: 40px;
+  text-align: center;
+  font-weight: bold;
 }
 
-.level:hover {
-    background-color: #2a2a2a;
+.avatar-placeholder {
+  width: 64px;
+  height: 64px;
+  background: #2a2a35;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  border-radius: 6px;
+  font-size: 10px;
+  color: #888;
 }
 
-.level img.avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 6px;
-    margin-right: 15px;
-    object-fit: cover;
+.info .name {
+  font-size: 16px;
+  font-weight: bold;
 }
 
-/* ====== Гравці ====== */
-.player {
-    background-color: #1a1a1a;
-    padding: 10px;
-    margin-bottom: 5px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s;
+.info .meta {
+  font-size: 13px;
+  color: #aaa;
 }
 
-.player:hover {
-    background-color: #2a2a2a;
+/* PLAYERS */
+.player-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-/* ====== Модалка ====== */
-#modal {
-    display: none;
-    position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background: rgba(0,0,0,0.75);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+.player-card {
+  display: grid;
+  grid-template-columns: 50px 1fr 80px;
+  background: #1a1a24;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #2a2a35;
 }
 
-.modal-content {
-    background-color: #1e1e1e;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 600px;
-    width: 90%;
-    max-height: 80%;
-    overflow-y: auto;
-    color: #e0e0e0;
-    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+.player-rank {
+  text-align: center;
+  font-weight: bold;
 }
 
-.modal-content img.avatar-large {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    display: block;
+.player-points {
+  text-align: right;
+  color: #ffd966;
 }
 
-/* ====== Інформаційні блоки ====== */
-.info-block {
-    margin-bottom: 10px;
+/* GHOST */
+.ghost {
+  opacity: 0.5;
 }
 
-.tag-list {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 5px;
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 12px;
+  color: #777;
+  font-size: 12px;
 }
 
-.tag {
-    background-color: #333;
-    color: #fff;
-    padding: 2px 6px;
-    margin: 2px;
-    border-radius: 4px;
-    font-size: 12px;
-}
-
-/* ====== Бейджі ====== */
-.badge {
-    background-color: #ff9800;
-    color: #121212;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 12px;
-    margin-left: 5px;
-}
-
-/* ====== Версія ====== */
-#version {
-    font-size: 14px;
-    color: #888;
-    margin-bottom: 10px;
-}
