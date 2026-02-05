@@ -1,4 +1,25 @@
-// ===== ChatGPT Demonlist v1.5.3 =====
+// ================== СЕКЦІЇ ==================
+function showSection(name){
+  ["levels","players","updates"].forEach(s=>{
+    document.getElementById(s+"Section")?.classList.add("hidden");
+  });
+  document.getElementById(name+"Section")?.classList.remove("hidden");
+}
+
+// ================== ОЧКИ ==================
+function pointsForRank(rank){
+  if(rank===1) return 350;
+  if(rank===2) return 325;
+  if(rank===3) return 300;
+  if(rank===4) return 285;
+  if(rank===5) return 270;
+  if(rank===6) return 260;
+  if(rank===7) return 250;
+  if(rank===8) return 245;
+  return Math.max(50,245-(rank-8)*5);
+}
+
+// ================== РІВНІ ==================
 const levels = [
   {rank:1,name:"Xeuweu",author:"Xeuweu",verifier:"Xeuweu",type:"fan",time:"2:05",avatar:""},
   {rank:2,name:"Tidal Wave",author:"OniLink",verifier:"Ryamu",type:"pointer",time:"2:10",avatar:"avatars/TidalWave.jpg"},
@@ -32,11 +53,25 @@ const levels = [
   {rank:30,name:"Silent World",author:"Silest",verifier:"Lonid",type:"fan",time:"2:30",avatar:""}
 ];
 
+// ================== ФІЛЬТР ==================
+let currentFilter="all";
+
+function setFilter(type){
+  currentFilter = type;
+
+  document.querySelectorAll(".filters button")
+    .forEach(b => b.classList.remove("active"));
+
+  document.getElementById("btn-"+type)?.classList.add("active");
+  renderLevels();
+}
+
+// ====== ГРАВЦІ (вручну) ======
 const players = {
-  "Vityapro12": {
+    "Vityapro12": {
     created:["Cat Molodets"],
     verified:["Void Spiral","Cat Molodets","Spectral Core","CXT MOLODETS","INCREMENT"],
-    passed:["Amethyst","Flamewall","Slaughterhouse","Oblivion","Slaughterhouse Rebirth","Silent World","Kioker Per Ker","Neon Horizon"],
+    passed:["Amethyst","Flamewall","Slaughterhouse","Oblivion","Slaughterhouse Rebirth","Silent World","Kioker Per Ker","Neon Horizon"], // пройшли чужі рівні
     pts:0
   },
   "GGsBoy": {
@@ -62,37 +97,37 @@ const players = {
     verified:["Neon Horizon","SILENT HORIZON X","Silent World","Silest World"],
     passed:["Amethyst","Flamewall"],
     pts:0
-  },
+      },
   "Zoink": {
     created:[],
     verified:["Slaughterhouse Rebirth","Avernus","Slaughterhouse","Nullscape"],
     passed:["Amethyst","Flamewall","Thinking Space II","Acheron","Cat Molodets","Silent World","CXT MOLODETS","Kioker Per Ker"],
     pts:0
-  },
+       },
   "Ryamu": {
     created:["Acheron"],
     verified:["Tidal Wave"],
     passed:["Query","Slaughterhouse Rebirth","Slaughterhouse"],
     pts:0
-  },
+         },
   "OniLink": {
     created:["Tidal Wave"],
     verified:["Acheron"],
     passed:["SILENT HORIZON X","Slaughterhouse","Xeuweu","Tidal Wave"],
     pts:0
-  },
+             },
   "bkold": {
     created:[],
     verified:["andromeda"],
     passed:["Tidal Wave","Slaughterhouse Rebirth","Avernus","VOID ASCENSION","Cat Molodets","SILENT HORIZON X","Thinking Space II"],
     pts:0
-  },
+               },
   "Hopii": {
     created:[],
     verified:["Query","Liptogen"],
     passed:["Tidal Wave","Cat Molodets"],
     pts:0
-  },
+                  },
   "Trick": {
     created:[],
     verified:["Oblivion"],
@@ -104,19 +139,19 @@ const players = {
     verified:["Flamewall"],
     passed:["Tidal Wave","Spectral Core"],
     pts:0
-  },
+      },
   "Knobbelboy": {
     created:[],
     verified:["Thinking Space II","Qwilt"],
     passed:["Silent World"],
     pts:0
-  },
+        },
   "Fled": {
     created:[],
     verified:["Boobawamba"],
     passed:[],
     pts:0
-  },
+       },
   "WhizKid": {
     created:[],
     verified:["Anathema"],
@@ -126,146 +161,61 @@ const players = {
 };
 
 
-// ===== СТАН =====
-let currentFilter = "all";
-let currentSection = "levels";
+// ================== ОЧКИ ==================
+Object.values(players).forEach(p=>p.pts=0);
 
-// ===== ОЧКИ =====
-function pointsForRank(rank){
-  if(rank===1) return 350;
-  if(rank===2) return 325;
-  if(rank===3) return 300;
-  if(rank===4) return 285;
-  if(rank===5) return 270;
-  if(rank===6) return 260;
-  if(rank===7) return 250;
-  if(rank===8) return 245;
-  return Math.max(50,245-(rank-8)*5);
-}
-
-// ===== СЕКЦІЇ =====
-function showSection(name){
-  ["levels","players","updates"].forEach(s=>{
-    document.getElementById(s+"Section").classList.add("hidden");
+Object.entries(players).forEach(([p,data])=>{
+  [...new Set(data.passed)].forEach(lname=>{
+    const lvl = levels.find(l=>l.name===lname);
+    if(lvl && lvl.author!==p){
+      data.pts += pointsForRank(lvl.rank);
+    }
   });
-  document.getElementById(name+"Section").classList.remove("hidden");
-  currentSection = name;
-}
-
-// ===== ФІЛЬТР =====
-function setFilter(type){
-  currentFilter = type;
-  document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
-  document.getElementById("filter-"+type).classList.add("active");
-  renderLevels();
-}
-
-// ===== ПЕРЕРАХУНОК ОЧОК =====
-function recalcPoints(){
-  Object.values(players).forEach(p=>p.pts=0);
-
-  Object.entries(players).forEach(([pname,p])=>{
-    p.passed.forEach(lname=>{
-      const lvl = levels.find(l=>l.name===lname);
-      if(lvl && lvl.author!==pname){
-        p.pts += pointsForRank(lvl.rank);
-      }
-    });
-    p.verified.forEach(lname=>{
-      const lvl = levels.find(l=>l.name===lname);
-      if(lvl){
-        p.pts += pointsForRank(lvl.rank)*2;
-      }
-    });
+  [...new Set(data.verified)].forEach(lname=>{
+    const lvl = levels.find(l=>l.name===lname);
+    if(lvl){
+      data.pts += pointsForRank(lvl.rank)*2;
+    }
   });
-}
+});
 
-// ===== РЕНДЕР РІВНІВ =====
+// ================== РЕНДЕР ==================
+const levelsDiv=document.getElementById("levels");
+const playersDiv=document.getElementById("players");
+
 function renderLevels(){
-  const box = document.getElementById("levelsList");
-  box.innerHTML = "";
-
+  if(!levelsDiv) return;
+  levelsDiv.innerHTML="";
   levels
     .filter(l=>currentFilter==="all"||l.type===currentFilter)
     .sort((a,b)=>a.rank-b.rank)
     .forEach(l=>{
-      const div = document.createElement("div");
-      div.className = "level-card";
-      div.innerHTML = `
-        <img src="${l.avatar||''}">
-        <div>
-          <b>#${l.rank} ${l.name}</b><br>
-          Автор: ${l.author} • Verifier: ${l.verifier}
-        </div>
+      const d=document.createElement("div");
+      d.className="level";
+      d.innerHTML=`
+        <img class="avatar" src="${l.avatar||''}">
+        <div><b>#${l.rank} ${l.name}</b><br>Автор: ${l.author} • Verifier: ${l.verifier}</div>
       `;
-      div.onclick = ()=>openLevelModal(l);
-      box.appendChild(div);
+      d.onclick=()=>showLevelModal(l);
+      levelsDiv.appendChild(d);
     });
 }
 
-// ===== РЕНДЕР ГРАВЦІВ =====
 function renderPlayers(){
-  const box = document.getElementById("playersList");
-  box.innerHTML = "";
-
+  if(!playersDiv) return;
+  playersDiv.innerHTML="";
   Object.entries(players)
     .sort((a,b)=>b[1].pts-a[1].pts)
-    .forEach(([name,p],i)=>{
-      const div = document.createElement("div");
-      div.className = "player-card";
-      div.innerHTML = `<b>#${i+1} ${name}</b> — ${p.pts} pts`;
-      div.onclick = ()=>openPlayerModal(name);
-      box.appendChild(div);
+    .forEach(([n,d],i)=>{
+      const el=document.createElement("div");
+      el.className="player";
+      el.innerHTML=`<b>#${i+1} ${n}</b> — ${d.pts} pts`;
+      el.onclick=()=>showPlayerModal(n);
+      playersDiv.appendChild(el);
     });
 }
 
-// ===== МОДАЛКА =====
-const modal = document.getElementById("modal");
-const modalBody = document.getElementById("modalBody");
-
-function openModal(html){
-  modal.style.display="flex";
-  modalBody.innerHTML=html;
-}
-function closeModal(){
-  modal.style.display="none";
-}
-modal.onclick = closeModal;
-modalBody.onclick = e=>e.stopPropagation();
-
-// ===== МОДАЛКА РІВНЯ =====
-function openLevelModal(l){
-  const passedBy = Object.entries(players)
-    .filter(([_,p])=>p.passed.includes(l.name))
-    .map(([n])=>n);
-
-  openModal(`
-    <img class="avatar-large" src="${l.avatar||''}">
-    <h3>${l.name}</h3>
-    <p><b>Ранг:</b> #${l.rank}</p>
-    <p><b>Автор:</b> ${l.author}</p>
-    <p><b>Verifier:</b> ${l.verifier}</p>
-    <p><b>Тип:</b> ${l.type}</p>
-    <p><b>Тривалість:</b> ${l.time}</p>
-    <p><b>Очки:</b> ${pointsForRank(l.rank)}</p>
-    <p><b>Пройшли:</b> ${passedBy.join(", ")||"—"}</p>
-  `);
-}
-
-// ===== МОДАЛКА ГРАВЦЯ =====
-function openPlayerModal(name){
-  const p = players[name];
-  openModal(`
-    <h3>${name}</h3>
-    <p><b>Очки:</b> ${p.pts}</p>
-    <p><b>Створив:</b> ${p.created.join(", ")||"—"}</p>
-    <p><b>Verifнув:</b> ${p.verified.join(", ")||"—"}</p>
-    <p><b>Пройшов:</b> ${p.passed.join(", ")||"—"}</p>
-  `);
-}
-
-// ===== ІНІЦІАЛІЗАЦІЯ =====
-recalcPoints();
+// ================== INIT ==================
 renderLevels();
 renderPlayers();
-showSection("levels");
+
