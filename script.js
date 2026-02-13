@@ -247,7 +247,7 @@ function showLevelModal(level){
       <b>Verifier:</b> <span>${level.verifier}</span><br>
       <b>Тип:</b> <span>${level.type}</span><br>
       <b>Очки:</b> <span>${pointsForRank(level.rank)}</span><br>
-      <b>Тривалість:</b> <span>${level.time}</span>
+      <b>Дає балів:</b> <span>${pointsForRank(level.rank)}</span>
     </div>
   `;
   openModal(html);
