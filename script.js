@@ -242,9 +242,8 @@ function renderLevels(){
         <div>
           <div class="level-rank">#${l.rank} ${l.name}</div>
           <div class="level-meta">Автор: ${l.author} • Verifier: ${l.verifier}</div>
-          ${levelBadges ? `<div class="badge-row">${levelBadges}</div>` : ""}
         </div>
-        <div class="level-meta">${pointsForRank(l.rank)} pts</div>
+        <div class="level-meta">${l.time}</div>
       `;
       d.onclick = ()=>showLevelModal(l);
       levelsDiv.appendChild(d);
@@ -263,14 +262,7 @@ function renderPlayers(){
       const hardest = getHardestPassedLevel(data);
       const playerBadges = renderBadges(getPlayerBadges(name, data));
       d.className="player";
-      d.innerHTML=`
-        <div>
-          <b>#${i+1} ${name}</b>
-          <div class="player-meta">Найважчий: ${hardest ? `#${hardest.rank} ${hardest.name}` : "Немає"}</div>
-          ${playerBadges ? `<div class="badge-row">${playerBadges}</div>` : ""}
-        </div>
-        <span class="player-points">${data.pts} pts</span>
-      `;
+      d.innerHTML=`<b>#${i+1} ${name}</b><span class="player-points">${data.pts} pts</span>`;
       d.onclick = ()=>showPlayerModal(name);
       playersDiv.appendChild(d);
     });
@@ -300,7 +292,7 @@ function showLevelModal(level){
       <b>Verifier:</b> <span>${level.verifier}</span><br>
       <b>Тип:</b> <span>${level.type}</span><br>
       <b>Очки:</b> <span>${pointsForRank(level.rank)}</span><br>
-      <b>Тривалість:</b> <span>${level.time}</span>
+      <b>Дає балів:</b> <span>${pointsForRank(level.rank)}</span>
     </div>
     <div class="info-block">
       <b>Пройшли рівень:</b>
