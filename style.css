@@ -44,203 +44,137 @@ main {
   margin: 0 auto;
 }
 
+.hidden {
+  display: none;
+}
+
+/* HEADER */
 header {
-  background: rgba(20, 26, 38, 0.9);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  padding: 18px 20px;
+  background: #15151b;
+  padding: 14px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
-  backdrop-filter: blur(4px);
+  border-bottom: 2px solid #2a2a35;
 }
 
 header h1 {
-  font-size: clamp(22px, 4vw, 34px);
-}
-
-.subtitle {
-  margin-top: 4px;
-  color: var(--muted);
-  font-size: 14px;
+  font-size: 20px;
 }
 
 #version {
-  color: #b4bdd2;
-  background: rgba(111, 124, 255, 0.18);
-  border: 1px solid rgba(111, 124, 255, 0.5);
-  border-radius: 999px;
-  padding: 6px 12px;
-  font-size: 13px;
-  white-space: nowrap;
+  color: #9a9aaa;
 }
 
+/* NAV */
 nav {
   display: flex;
   gap: 10px;
   margin-bottom: 14px;
 }
 
-.tab-btn,
+nav button,
 .filters button {
-  border: 1px solid var(--line);
-  background: var(--card);
-  color: #d6dcef;
-  border-radius: 10px;
-  padding: 10px 14px;
+  background: #1d1d26;
+  color: #ccc;
+  border: none;
+  padding: 8px 14px;
   cursor: pointer;
   transition: all .2s ease;
 }
 
-.tab-btn:hover,
+nav button:hover,
 .filters button:hover {
-  transform: translateY(-1px);
-  border-color: #44577e;
-  background: var(--card-2);
-}
-
-.tab-btn.active,
-.filters button.active {
-  border-color: transparent;
-  background: linear-gradient(120deg, var(--accent), #8f62ff);
-  color: #fff;
-  box-shadow: 0 8px 20px rgba(111, 124, 255, 0.3);
-}
-
-main {
-  background: rgba(12, 16, 26, 0.8);
-  border: 1px solid #222e46;
-  border-radius: 18px;
-  padding: 14px;
+  background: #282835;
 }
 
 .filters {
   display: flex;
   gap: 10px;
-  margin-bottom: 10px;
+  padding: 12px 10px;
+}
+
+.filters button.active {
+  background: #3b3bff;
+  color: #fff;
+}
+
+section {
+  padding: 0 10px 20px;
 }
 
 .update,
 .level,
 .player {
-  background: linear-gradient(160deg, rgba(26, 34, 49, 0.96), rgba(20, 27, 38, 0.96));
-  border: 1px solid var(--line);
-  border-radius: 14px;
+  background: #1a1a24;
+  border-radius: 8px;
   padding: 12px;
+  border: 1px solid #2a2a35;
   margin-top: 10px;
 }
 
 .level {
-  display: grid;
-  grid-template-columns: 72px 1fr auto;
+  display: flex;
   gap: 12px;
   align-items: center;
   cursor: pointer;
 }
 
-.level:hover,
-.player:hover {
-  border-color: #4a5d83;
-}
-
-.level-rank {
-  color: #ffcc7a;
-  font-weight: 700;
-}
-
-.level-meta {
-  color: var(--muted);
-  font-size: 13px;
-  margin-top: 3px;
-}
-
 .avatar {
-  width: 72px;
-  height: 72px;
-  border-radius: 10px;
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
   object-fit: cover;
-  background: #2a3550;
-  border: 1px solid #33415f;
+  background: #2a2a35;
 }
 
 .avatar-large {
   width: 100%;
-  max-height: 240px;
-  border-radius: 12px;
+  max-height: 220px;
+  border-radius: 8px;
   object-fit: cover;
-  border: 1px solid #33415f;
+  background: #2a2a35;
 }
 
 .player {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   cursor: pointer;
-}
-
-.player b {
-  margin-right: 10px;
-}
-
-.player-points {
-  color: #ffd57a;
-  font-weight: 700;
 }
 
 .modal {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(3, 4, 8, 0.7);
+  background: rgba(0, 0, 0, 0.65);
   align-items: center;
   justify-content: center;
-  padding: 16px;
-  z-index: 20;
+  padding: 20px;
 }
 
 .modal-content {
-  width: min(650px, 96vw);
-  max-height: 88vh;
+  width: min(600px, 95vw);
+  max-height: 85vh;
   overflow: auto;
-  background: #101723;
-  border: 1px solid var(--line);
-  border-radius: 14px;
+  background: #14141c;
+  border: 1px solid #2a2a35;
+  border-radius: 10px;
   padding: 16px;
 }
 
 .info-block {
-  margin-top: 12px;
+  margin-top: 10px;
 }
 
 .tag-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 7px;
-  margin-top: 7px;
+  gap: 6px;
+  margin-top: 6px;
 }
 
 .tag {
-  background: #222c3d;
-  border: 1px solid #364862;
+  background: #252535;
+  border: 1px solid #36364a;
   border-radius: 999px;
-  padding: 5px 10px;
+  padding: 4px 10px;
   font-size: 13px;
-}
-
-@media (max-width: 740px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  nav,
-  .filters {
-    flex-wrap: wrap;
-  }
-
-  .level {
-    grid-template-columns: 56px 1fr;
-  }
 }

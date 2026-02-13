@@ -220,7 +220,7 @@ function renderPlayers(){
     .forEach(([name,data],i)=>{
       const d=document.createElement("div");
       d.className="player";
-      d.innerHTML=`<b>#${i+1} ${name} </b><span class="player-points">${data.pts} pts</span>`;
+      d.innerHTML=`<b>#${i+1} ${name}</b><span class="player-points">${data.pts} pts</span>`;
       d.onclick = ()=>showPlayerModal(name);
       playersDiv.appendChild(d);
     });
