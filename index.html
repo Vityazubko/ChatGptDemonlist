@@ -9,6 +9,10 @@
 <body>
   <div class="page-glow"></div>
 
+<header>
+  <h1>🔥 ChatGPT Demonlist</h1>
+  <p id="version">Версія 1.5.3 • 2026</p>
+</header>
   <header>
     <div>
       <h1>🔥 ChatGPT Demonlist</h1>
@@ -17,12 +21,22 @@
     <p id="version">Версія 1.6 • 2026</p>
   </header>
 
+<nav>
+  <button onclick="showSection('levels')">🔥 Рівні</button>
+  <button onclick="showSection('players')">👑 Гравці</button>
+  <button onclick="showSection('updates')">🕒 Історія оновлень</button>
+</nav>
   <nav>
     <button class="tab-btn active" data-section="levels" onclick="showSection('levels')">🔥 Рівні</button>
     <button class="tab-btn" data-section="players" onclick="showSection('players')">👑 Гравці</button>
     <button class="tab-btn" data-section="updates" onclick="showSection('updates')">🕒 Історія оновлень</button>
   </nav>
 
+<div class="filters">
+  <button onclick="filterType('all')">Всі</button>
+  <button onclick="filterType('pointer')">PointerCreate</button>
+  <button onclick="filterType('fan')">Вигадані</button>
+</div>
   <main>
     <div class="filters" id="levelsFilters">
       <button id="btn-all" class="active" onclick="setFilter('all')">Всі</button>
@@ -30,14 +44,41 @@
       <button id="btn-fan" onclick="setFilter('fan')">Вигадані</button>
     </div>
 
+<!-- РІВНІ -->
+<section id="levelsSection">
+  <div id="levels"></div>
+</section>
     <section id="levelsSection">
       <div id="levels"></div>
     </section>
 
+<!-- ГРАВЦІ -->
+<section id="playersSection" class="hidden">
+  <div id="players"></div>
+</section>
     <section id="playersSection" class="hidden">
       <div id="players"></div>
     </section>
 
+<!-- ОНОВЛЕННЯ -->
+<section id="updatesSection" class="hidden">
+  <div class="update">
+    <h3>1.4</h3>
+    <ul>
+      <li>Новий дизайн</li>
+      <li>Очки за проходження і верифікацію</li>
+      <li>Фільтр PointerCreate / Fan</li>
+      <li>Повернуті всі рівні</li>
+    </ul>
+  </div>
+  <div class="update">
+    <h3>1.3</h3>
+    <ul>
+      <li>Топ гравців</li>
+      <li>Очки за рівні</li>
+    </ul>
+  </div>
+</section>
     <section id="updatesSection" class="hidden">
       <div class="update">
         <h3>1.6</h3>
@@ -67,12 +108,17 @@
     </section>
   </main>
 
+<!-- МОДАЛКА -->
+<div id="modal" class="modal" onclick="closeModal()">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div id="modalBody"></div>
   <div id="modal" class="modal">
     <div class="modal-content">
       <div id="modalBody"></div>
     </div>
   </div>
 
+<script src="script.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
