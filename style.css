@@ -10,26 +10,30 @@ body {
   color: #eaeaf0;
 }
 
+.hidden {
+  display: none;
+}
+
 /* HEADER */
-.topbar {
+header {
   background: #15151b;
   padding: 14px 20px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border-bottom: 2px solid #2a2a35;
 }
 
-.logo {
+header h1 {
   font-size: 20px;
-  font-weight: bold;
 }
 
-.version {
+#version {
   color: #9a9aaa;
 }
 
 /* NAV */
-.navbar {
+nav {
   display: flex;
   gap: 10px;
   padding: 10px;
@@ -37,7 +41,8 @@ body {
   border-bottom: 1px solid #2a2a35;
 }
 
-.nav-btn {
+nav button,
+.filters button {
   background: #1d1d26;
   color: #ccc;
   border: none;
@@ -46,111 +51,98 @@ body {
   border-radius: 6px;
 }
 
-.nav-btn.active {
+nav button:hover,
+.filters button:hover {
+  background: #282835;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  padding: 12px 10px;
+}
+
+.filters button.active {
   background: #3b3bff;
   color: #fff;
 }
 
-/* MAIN */
-.container {
-  padding: 20px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
+section {
+  padding: 0 10px 20px;
 }
 
-.panel {
-  background: #14141c;
-  padding: 16px;
-  border-radius: 10px;
-  border: 1px solid #2a2a35;
-}
-
-.panel h2 {
-  margin-bottom: 14px;
-}
-
-/* LEVELS */
-.level-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.level-card {
-  display: flex;
-  align-items: center;
+.update,
+.level,
+.player {
   background: #1a1a24;
   border-radius: 8px;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #2a2a35;
+  margin-top: 10px;
 }
 
-.rank {
-  width: 40px;
-  text-align: center;
-  font-weight: bold;
+.level {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  cursor: pointer;
 }
 
-.avatar-placeholder {
+.avatar {
   width: 64px;
   height: 64px;
+  border-radius: 8px;
+  object-fit: cover;
   background: #2a2a35;
-  display: flex;
+}
+
+.avatar-large {
+  width: 100%;
+  max-height: 220px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #2a2a35;
+}
+
+.player {
+  cursor: pointer;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
   align-items: center;
   justify-content: center;
-  margin-right: 12px;
-  border-radius: 6px;
-  font-size: 10px;
-  color: #888;
+  padding: 20px;
 }
 
-.info .name {
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.info .meta {
-  font-size: 13px;
-  color: #aaa;
-}
-
-/* PLAYERS */
-.player-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.player-card {
-  display: grid;
-  grid-template-columns: 50px 1fr 80px;
-  background: #1a1a24;
-  padding: 10px;
-  border-radius: 8px;
+.modal-content {
+  width: min(600px, 95vw);
+  max-height: 85vh;
+  overflow: auto;
+  background: #14141c;
   border: 1px solid #2a2a35;
+  border-radius: 10px;
+  padding: 16px;
 }
 
-.player-rank {
-  text-align: center;
-  font-weight: bold;
+.info-block {
+  margin-top: 10px;
 }
 
-.player-points {
-  text-align: right;
-  color: #ffd966;
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
 }
 
-/* GHOST */
-.ghost {
-  opacity: 0.5;
+.tag {
+  background: #252535;
+  border: 1px solid #36364a;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 13px;
 }
-
-/* FOOTER */
-.footer {
-  text-align: center;
-  padding: 12px;
-  color: #777;
-  font-size: 12px;
-}
-

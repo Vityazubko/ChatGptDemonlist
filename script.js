@@ -60,7 +60,8 @@ function setFilter(type){
   document.querySelectorAll(".filters button")
     .forEach(b => b.classList.remove("active"));
 
-  document.getElementById("btn-"+type).classList.add("active");
+  const activeBtn = document.getElementById("btn-" + type);
+  if (activeBtn) activeBtn.classList.add("active");
 
   renderLevels();
 }
@@ -190,7 +191,7 @@ function renderLevels(){
       const d=document.createElement("div");
       d.className="level";
       d.innerHTML=`
-        <img class="avatar" src="${l.avatar}">
+        <img class="avatar" src="${l.avatar || ""}" alt="${l.name}" onerror="this.style.display='none'">
         <div>
           <b>#${l.rank} ${l.name}</b><br>
           Автор: ${l.author} • Verifier: ${l.verifier}
@@ -231,7 +232,7 @@ modalContent.addEventListener("click", e => e.stopPropagation());
 
 function showLevelModal(level){
   const html = `
-    <img class="avatar-large" src="${level.avatar || ''}">
+    ${level.avatar ? `<img class="avatar-large" src="${level.avatar}" alt="${level.name}">` : ""}
     <h3>${level.name}</h3>
     <div class="info-block">
       <b>Автор:</b> <span>${level.author}</span><br>
