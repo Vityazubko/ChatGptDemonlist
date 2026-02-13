@@ -4,6 +4,13 @@ function showSection(name){
     document.getElementById(s+"Section").classList.add("hidden");
   });
   document.getElementById(name+"Section").classList.remove("hidden");
+
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.section === name);
+  });
+
+  const filters = document.getElementById("levelsFilters");
+  if (filters) filters.classList.toggle("hidden", name !== "levels");
 }
 
 // ====== ОЧКИ ======
@@ -53,6 +60,56 @@ const levels = [
   {rank:30,name:"Silent World",author:"Silest",verifier:"Lonid",type:"fan",time:"2:30",avatar:""}
 ];
 
+const badgeInfo = {
+  top1: { label: "Топ 1", icon: "👑", desc: "Зараз або колись був на першому місці." },
+  sequel: { label: "Sequel", icon: "🧩", desc: "Це сиквел (продовження) іншого рівня." },
+  verifier: { label: "Веріфаєр", icon: "✅", desc: "Гравець верифнув хоча б один рівень." },
+  creator: { label: "Креатор", icon: "🛠️", desc: "Гравець створив хоча б один рівень." }
+};
+
+const levelBadgeRules = {
+  top1: new Set(["Xeuweu", "Tidal Wave"]),
+  sequel: new Set(["Slaughterhouse Rebirth", "CXT MOLODETS", "Silest World"])
+};
+
+const playerTopOne = new Set(["Zoink", "Vityapro12", "Xeuweu"]);
+
+function renderBadges(badges){
+  return badges.map(b => {
+    const info = badgeInfo[b.type] || { label: b.label, icon: "🏷️", desc: "Бейдж" };
+    const title = `${info.label} — ${info.desc}`;
+    return `<span class="badge badge-${b.type}" title="${title}" aria-label="${title}"><span class="badge-icon" aria-hidden="true">${info.icon}</span><span>${info.label}</span></span>`;
+  }).join("");
+}
+
+function getLevelBadges(level){
+  const badges = [];
+  if (levelBadgeRules.top1.has(level.name)) badges.push({ type: "top1" });
+  if (levelBadgeRules.sequel.has(level.name)) badges.push({ type: "sequel" });
+  return badges;
+}
+
+function getPlayerBadges(name, data){
+  const badges = [];
+  if (data.verified.length > 0) badges.push({ type: "verifier" });
+  if (data.created.length > 0) badges.push({ type: "creator" });
+  if (playerTopOne.has(name)) badges.push({ type: "top1" });
+  return badges;
+}
+
+function getHardestPassedLevel(data){
+  return data.passed
+    .map(levelName => levels.find(l => l.name === levelName))
+    .filter(Boolean)
+    .sort((a, b) => a.rank - b.rank)[0] || null;
+}
+
+function getLevelPassers(levelName){
+  return Object.entries(players)
+    .filter(([, data]) => data.passed.includes(levelName))
+    .map(([playerName]) => playerName);
+}
+
 let currentFilter="all";
 function setFilter(type){
   currentFilter = type;
@@ -60,7 +117,8 @@ function setFilter(type){
   document.querySelectorAll(".filters button")
     .forEach(b => b.classList.remove("active"));
 
-  document.getElementById("btn-"+type).classList.add("active");
+  const activeBtn = document.getElementById("btn-" + type);
+  if (activeBtn) activeBtn.classList.add("active");
 
   renderLevels();
 }
@@ -189,12 +247,15 @@ function renderLevels(){
     .forEach(l=>{
       const d=document.createElement("div");
       d.className="level";
+      const levelBadges = renderBadges(getLevelBadges(l));
       d.innerHTML=`
-        <img class="avatar" src="${l.avatar}">
+        <img class="avatar" src="${l.avatar || ""}" alt="${l.name}" onerror="this.style.display='none'">
         <div>
-          <b>#${l.rank} ${l.name}</b><br>
-          Автор: ${l.author} • Verifier: ${l.verifier}
+          <div class="level-rank">#${l.rank} ${l.name}</div>
+          <div class="level-meta">Автор: ${l.author} • Verifier: ${l.verifier}</div>
+          ${levelBadges ? `<div class="badge-row">${levelBadges}</div>` : ""}
         </div>
+        <div class="level-meta">${pointsForRank(l.rank)} pts</div>
       `;
       d.onclick = ()=>showLevelModal(l);
       levelsDiv.appendChild(d);
@@ -210,8 +271,17 @@ function renderPlayers(){
     .sort((a,b)=>b[1].pts - a[1].pts)
     .forEach(([name,data],i)=>{
       const d=document.createElement("div");
+      const hardest = getHardestPassedLevel(data);
+      const playerBadges = renderBadges(getPlayerBadges(name, data));
       d.className="player";
-      d.innerHTML=`<b>#${i+1} ${name}</b> — ${data.pts} pts`;
+      d.innerHTML=`
+        <div>
+          <b>#${i+1} ${name}</b>
+          <div class="player-meta">Найважчий: ${hardest ? `#${hardest.rank} ${hardest.name}` : "Немає"}</div>
+          ${playerBadges ? `<div class="badge-row">${playerBadges}</div>` : ""}
+        </div>
+        <span class="player-points">${data.pts} pts</span>
+      `;
       d.onclick = ()=>showPlayerModal(name);
       playersDiv.appendChild(d);
     });
@@ -230,9 +300,12 @@ modal.addEventListener("click", ()=>{ modal.style.display="none"; });
 modalContent.addEventListener("click", e => e.stopPropagation());
 
 function showLevelModal(level){
+  const levelBadges = renderBadges(getLevelBadges(level));
+  const passers = getLevelPassers(level.name);
   const html = `
-    <img class="avatar-large" src="${level.avatar || ''}">
+    ${level.avatar ? `<img class="avatar-large" src="${level.avatar}" alt="${level.name}">` : ""}
     <h3>${level.name}</h3>
+    ${levelBadges ? `<div class="badge-row">${levelBadges}</div>` : ""}
     <div class="info-block">
       <b>Автор:</b> <span>${level.author}</span><br>
       <b>Verifier:</b> <span>${level.verifier}</span><br>
@@ -240,25 +313,35 @@ function showLevelModal(level){
       <b>Очки:</b> <span>${pointsForRank(level.rank)}</span><br>
       <b>Тривалість:</b> <span>${level.time}</span>
     </div>
+    <div class="info-block">
+      <b>Пройшли рівень:</b>
+      <div class="tag-list">${passers.length ? passers.map(p => `<div class="tag">${p}</div>`).join("") : '<div class="tag">Немає даних</div>'}</div>
+    </div>
   `;
   openModal(html);
 }
 
 function showPlayerModal(playerName){
   const data = players[playerName];
+  const hardest = getHardestPassedLevel(data);
+  const playerBadges = renderBadges(getPlayerBadges(playerName, data));
   const html = `
     <h3>${playerName}</h3>
+    ${playerBadges ? `<div class="badge-row">${playerBadges}</div>` : ""}
+    <div class="info-block">
+      <b>Найважчий рівень:</b> <span>${hardest ? `#${hardest.rank} ${hardest.name}` : "Немає"}</span>
+    </div>
     <div class="info-block">
       <b>Зробив:</b>
-      <div class="tag-list">${data.created.map(l=>`<div class="tag">${l}</div>`).join("")}</div>
+      <div class="tag-list">${data.created.length ? data.created.map(l=>`<div class="tag">${l}</div>`).join("") : '<div class="tag">Немає</div>'}</div>
     </div>
     <div class="info-block">
       <b>Verifнув:</b>
-      <div class="tag-list">${data.verified.map(l=>`<div class="tag">${l}</div>`).join("")}</div>
+      <div class="tag-list">${data.verified.length ? data.verified.map(l=>`<div class="tag">${l}</div>`).join("") : '<div class="tag">Немає</div>'}</div>
     </div>
     <div class="info-block">
       <b>Пройшов:</b>
-      <div class="tag-list">${data.passed.map(l=>`<div class="tag">${l}</div>`).join("")}</div>
+      <div class="tag-list">${data.passed.length ? data.passed.map(l=>`<div class="tag">${l}</div>`).join("") : '<div class="tag">Немає</div>'}</div>
     </div>
     <div class="info-block">
       <b>Загальні очки:</b> <span>${data.pts}</span>
