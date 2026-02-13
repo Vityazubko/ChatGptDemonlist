@@ -1,3 +1,10 @@
+function removeDuplicateUIBlocks(){
+  ["header", "nav", "#levelsFilters"].forEach(selector => {
+    const items = Array.from(document.querySelectorAll(selector));
+    items.slice(1).forEach(node => node.remove());
+  });
+}
+
 // ====== СЕКЦІЇ ======
 function showSection(name){
   ["levels","players","updates"].forEach(s=>{
@@ -302,6 +309,10 @@ function showLevelModal(level){
       <b>Пройшли рівень:</b>
       <div class="tag-list">${passers.length ? passers.map(p => `<div class="tag">${p}</div>`).join("") : '<div class="tag">Немає даних</div>'}</div>
     </div>
+    <div class="info-block">
+      <b>Пройшли рівень:</b>
+      <div class="tag-list">${passers.length ? passers.map(p => `<div class="tag">${p}</div>`).join("") : '<div class="tag">Немає даних</div>'}</div>
+    </div>
   `;
   openModal(html);
 }
@@ -336,5 +347,6 @@ function showPlayerModal(playerName){
 }
 
 // ====== ІНІЦІАЛІЗАЦІЯ ======
+removeDuplicateUIBlocks();
 renderLevels();
 renderPlayers();
