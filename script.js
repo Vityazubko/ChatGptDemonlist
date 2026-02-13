@@ -298,6 +298,10 @@ function showLevelModal(level){
       <b>Пройшли рівень:</b>
       <div class="tag-list">${passers.length ? passers.map(p => `<div class="tag">${p}</div>`).join("") : '<div class="tag">Немає даних</div>'}</div>
     </div>
+    <div class="info-block">
+      <b>Пройшли рівень:</b>
+      <div class="tag-list">${passers.length ? passers.map(p => `<div class="tag">${p}</div>`).join("") : '<div class="tag">Немає даних</div>'}</div>
+    </div>
   `;
   openModal(html);
 }
