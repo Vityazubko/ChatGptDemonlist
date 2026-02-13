@@ -67,13 +67,6 @@ const levels = [
   {rank:30,name:"Silent World",author:"Silest",verifier:"Lonid",type:"fan",time:"2:30",avatar:""}
 ];
 
-const badgeInfo = {
-  top1: { label: "Топ 1", icon: "👑", desc: "Зараз або колись був на першому місці." },
-  sequel: { label: "Sequel", icon: "🧩", desc: "Це сиквел (продовження) іншого рівня." },
-  verifier: { label: "Веріфаєр", icon: "✅", desc: "Гравець верифнув хоча б один рівень." },
-  creator: { label: "Креатор", icon: "🛠️", desc: "Гравець створив хоча б один рівень." }
-};
-
 const levelBadgeRules = {
   top1: new Set(["Xeuweu", "Tidal Wave"]),
   sequel: new Set(["Slaughterhouse Rebirth", "CXT MOLODETS", "Silest World"])
@@ -82,25 +75,21 @@ const levelBadgeRules = {
 const playerTopOne = new Set(["Zoink", "Vityapro12", "Xeuweu"]);
 
 function renderBadges(badges){
-  return badges.map(b => {
-    const info = badgeInfo[b.type] || { label: b.label, icon: "🏷️", desc: "Бейдж" };
-    const title = `${info.label} — ${info.desc}`;
-    return `<span class="badge badge-${b.type}" title="${title}" aria-label="${title}"><span class="badge-icon" aria-hidden="true">${info.icon}</span><span>${info.label}</span></span>`;
-  }).join("");
+  return badges.map(b => `<span class="badge badge-${b.type}">${b.label}</span>`).join("");
 }
 
 function getLevelBadges(level){
   const badges = [];
-  if (levelBadgeRules.top1.has(level.name)) badges.push({ type: "top1" });
-  if (levelBadgeRules.sequel.has(level.name)) badges.push({ type: "sequel" });
+  if (levelBadgeRules.top1.has(level.name)) badges.push({ type: "top1", label: "Топ 1" });
+  if (levelBadgeRules.sequel.has(level.name)) badges.push({ type: "sequel", label: "Sequel" });
   return badges;
 }
 
 function getPlayerBadges(name, data){
   const badges = [];
-  if (data.verified.length > 0) badges.push({ type: "verifier" });
-  if (data.created.length > 0) badges.push({ type: "creator" });
-  if (playerTopOne.has(name)) badges.push({ type: "top1" });
+  if (data.verified.length > 0) badges.push({ type: "verifier", label: "Веріфаєр" });
+  if (data.created.length > 0) badges.push({ type: "creator", label: "Креатор" });
+  if (playerTopOne.has(name)) badges.push({ type: "top1", label: "Топ 1" });
   return badges;
 }
 
@@ -260,9 +249,8 @@ function renderLevels(){
         <div>
           <div class="level-rank">#${l.rank} ${l.name}</div>
           <div class="level-meta">Автор: ${l.author} • Verifier: ${l.verifier}</div>
-          ${levelBadges ? `<div class="badge-row">${levelBadges}</div>` : ""}
         </div>
-        <div class="level-meta">${pointsForRank(l.rank)} pts</div>
+        <div class="level-meta">${l.time}</div>
       `;
       d.onclick = ()=>showLevelModal(l);
       levelsDiv.appendChild(d);
@@ -281,14 +269,7 @@ function renderPlayers(){
       const hardest = getHardestPassedLevel(data);
       const playerBadges = renderBadges(getPlayerBadges(name, data));
       d.className="player";
-      d.innerHTML=`
-        <div>
-          <b>#${i+1} ${name}</b>
-          <div class="player-meta">Найважчий: ${hardest ? `#${hardest.rank} ${hardest.name}` : "Немає"}</div>
-          ${playerBadges ? `<div class="badge-row">${playerBadges}</div>` : ""}
-        </div>
-        <span class="player-points">${data.pts} pts</span>
-      `;
+      d.innerHTML=`<b>#${i+1} ${name}</b><span class="player-points">${data.pts} pts</span>`;
       d.onclick = ()=>showPlayerModal(name);
       playersDiv.appendChild(d);
     });
@@ -318,7 +299,15 @@ function showLevelModal(level){
       <b>Verifier:</b> <span>${level.verifier}</span><br>
       <b>Тип:</b> <span>${level.type}</span><br>
       <b>Очки:</b> <span>${pointsForRank(level.rank)}</span><br>
-      <b>Тривалість:</b> <span>${level.time}</span>
+      <b>Дає балів:</b> <span>${pointsForRank(level.rank)}</span>
+    </div>
+    <div class="info-block">
+      <b>Пройшли рівень:</b>
+      <div class="tag-list">${passers.length ? passers.map(p => `<div class="tag">${p}</div>`).join("") : '<div class="tag">Немає даних</div>'}</div>
+    </div>
+    <div class="info-block">
+      <b>Пройшли рівень:</b>
+      <div class="tag-list">${passers.length ? passers.map(p => `<div class="tag">${p}</div>`).join("") : '<div class="tag">Немає даних</div>'}</div>
     </div>
     <div class="info-block">
       <b>Пройшли рівень:</b>
