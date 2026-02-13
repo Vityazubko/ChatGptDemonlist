@@ -4,6 +4,13 @@ function showSection(name){
     document.getElementById(s+"Section").classList.add("hidden");
   });
   document.getElementById(name+"Section").classList.remove("hidden");
+
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.section === name);
+  });
+
+  const filters = document.getElementById("levelsFilters");
+  if (filters) filters.classList.toggle("hidden", name !== "levels");
 }
 
 // ====== ОЧКИ ======
@@ -193,9 +200,10 @@ function renderLevels(){
       d.innerHTML=`
         <img class="avatar" src="${l.avatar || ""}" alt="${l.name}" onerror="this.style.display='none'">
         <div>
-          <b>#${l.rank} ${l.name}</b><br>
-          Автор: ${l.author} • Verifier: ${l.verifier}
+          <div class="level-rank">#${l.rank} ${l.name}</div>
+          <div class="level-meta">Автор: ${l.author} • Verifier: ${l.verifier}</div>
         </div>
+        <div class="level-meta">${l.time}</div>
       `;
       d.onclick = ()=>showLevelModal(l);
       levelsDiv.appendChild(d);
@@ -212,7 +220,7 @@ function renderPlayers(){
     .forEach(([name,data],i)=>{
       const d=document.createElement("div");
       d.className="player";
-      d.innerHTML=`<b>#${i+1} ${name}</b> — ${data.pts} pts`;
+      d.innerHTML=`<b>#${i+1} ${name}</b><span class="player-points">${data.pts} pts</span>`;
       d.onclick = ()=>showPlayerModal(name);
       playersDiv.appendChild(d);
     });

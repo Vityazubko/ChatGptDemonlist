@@ -2,21 +2,26 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ChatGPT Demonlist</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="page-glow"></div>
 
-<header>
-  <h1>🔥 ChatGPT Demonlist</h1>
-  <p id="version">Версія 1.5.3 • 2026</p>
-</header>
+  <header>
+    <div>
+      <h1>🔥 ChatGPT Demonlist</h1>
+      <p class="subtitle">Найскладніші демони та рейтинг гравців</p>
+    </div>
+    <p id="version">Версія 1.5.4 • 2026</p>
+  </header>
 
-<nav>
-  <button onclick="showSection('levels')">🔥 Рівні</button>
-  <button onclick="showSection('players')">👑 Гравці</button>
-  <button onclick="showSection('updates')">🕒 Історія оновлень</button>
-</nav>
+  <nav>
+    <button class="tab-btn active" data-section="levels" onclick="showSection('levels')">🔥 Рівні</button>
+    <button class="tab-btn" data-section="players" onclick="showSection('players')">👑 Гравці</button>
+    <button class="tab-btn" data-section="updates" onclick="showSection('updates')">🕒 Історія оновлень</button>
+  </nav>
 
 <div class="filters">
   <button id="btn-all" class="active" onclick="setFilter('all')">Всі</button>
@@ -55,8 +60,7 @@
   <div class="modal-content">
     <div id="modalBody"></div>
   </div>
-</div>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
