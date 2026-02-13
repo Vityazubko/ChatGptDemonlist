@@ -19,22 +19,19 @@
 </nav>
 
 <div class="filters">
-  <button onclick="filterType('all')">Всі</button>
-  <button onclick="filterType('pointer')">PointerCreate</button>
-  <button onclick="filterType('fan')">Вигадані</button>
+  <button id="btn-all" class="active" onclick="setFilter('all')">Всі</button>
+  <button id="btn-pointer" onclick="setFilter('pointer')">PointerCreate</button>
+  <button id="btn-fan" onclick="setFilter('fan')">Вигадані</button>
 </div>
 
-<!-- РІВНІ -->
 <section id="levelsSection">
   <div id="levels"></div>
 </section>
 
-<!-- ГРАВЦІ -->
 <section id="playersSection" class="hidden">
   <div id="players"></div>
 </section>
 
-<!-- ОНОВЛЕННЯ -->
 <section id="updatesSection" class="hidden">
   <div class="update">
     <h3>1.4</h3>
@@ -54,9 +51,8 @@
   </div>
 </section>
 
-<!-- МОДАЛКА -->
-<div id="modal" class="modal" onclick="closeModal()">
-  <div class="modal-content" onclick="event.stopPropagation()">
+<div id="modal" class="modal">
+  <div class="modal-content">
     <div id="modalBody"></div>
   </div>
 </div>
