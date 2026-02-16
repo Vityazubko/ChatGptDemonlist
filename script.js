@@ -154,7 +154,7 @@ const players = {
   "MeowCatMurcyk": {
     created:["Cat Molodets","CXT MOLODETS"],
     verified:[],
-    passed:["Flamewall","NEURAL COLLAPSE","Cat Molodets","CXT MOLODETS"],
+    passed:["Flamewall","NEURAL COLLAPSE"],
     pts:0
   },
   "Lonid": {
